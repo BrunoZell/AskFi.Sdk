@@ -68,11 +68,11 @@ type ActionInitiation = {
     Type: System.Type
 }
 
-type ActionSet = ActionSet of ActionInitiation ReadOnlyMemory
+type ActionSet = ActionSet of Initiatives:ActionInitiation ReadOnlyMemory
 
 type Decision =
     | Inaction
-    | Initiate of ActionSet
+    | Initiate of ActionSet:ActionSet
 
 /// Describes the random part of an ActionId to disambiguate between actions that got initiated
 /// at exactly the same timestamp.
