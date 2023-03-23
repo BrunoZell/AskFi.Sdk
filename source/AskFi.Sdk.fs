@@ -42,22 +42,20 @@ type WorldState = {
 
 type Query<'Parameters, 'Result> = 'Parameters -> WorldState -> 'Result
 
-/// Useful, reusable extensions to retrieve observations from a WorldState.
-type WorldState with
+/// Public query interface into a given WorldState.
+/// Used by queries, strategies and standalone analysis code to retrieve observations from a WorldState.
+type IWorldState =
     /// Get the latest received perception of the requested type.
     /// Returns `None` if no observation of the requested type has been made yet.
-    member world.latest<'Perception> () : 'Perception option =
-        None
+    abstract member latest<'Perception> : unit -> 'Perception option
 
     /// Get an iterator the all Observations of type `'Perception` since the passed `timestamp`
     /// (as determined by the runtime clock used during WorldEventStream sequencing).
-    member world.since<'Perception> (timestamp: DateTime) : 'Perception seq =
-        Seq.empty
+    abstract member since<'Perception> : timestamp: DateTime -> 'Perception seq
 
     /// Todo: get an ordered sequenced of multiple Perception-types
     /// Get an iterator the all Observations of the two types `'Perception1` and `'Perception2` since (as by the runtime clock used for WorldEventStream sequencing) the passed `timestamp`.
-    member world.since<'Perception1, 'Perception2> (timestamp: DateTime) : System.ValueTuple<'Perception1, 'Perception1> seq =
-        Seq.empty
+    abstract member since<'Perception1, 'Perception2> : timestamp: DateTime -> System.ValueTuple<'Perception1, 'Perception1> seq
 
 // ######################
 // ####   STRATEGY   ####
