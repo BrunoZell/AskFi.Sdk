@@ -55,7 +55,7 @@ type IWorldState =
 
     /// Todo: get an ordered sequenced of multiple Perception-types
     /// Get an iterator the all Observations of the two types `'Perception1` and `'Perception2` since (as by the runtime clock used for WorldEventStream sequencing) the passed `timestamp`.
-    abstract member since<'Perception1, 'Perception2> : timestamp: DateTime -> System.ValueTuple<'Perception1, 'Perception1> seq
+    abstract member since<'Perception1, 'Perception2> : timestamp: DateTime -> System.ValueTuple<'Perception1 option, 'Perception2 option> seq
 
 // ######################
 // ####   STRATEGY   ####
