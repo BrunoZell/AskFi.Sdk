@@ -33,15 +33,6 @@ type IObserver<'Perception> =
 // ####   QUERIES   ####
 // #####################
 
-[<IsReadOnly; Struct>]
-type Perspective = {
-    /// This references a Sdk.Runtime.DataModel.PerspectiveSequenceHead, which in turn references
-    /// all (in this perspective) available observations accross all Perception-types.
-    HashOfLatestPerspectiveSequenceHead: int32
-}
-
-type Query<'Parameters, 'Result> = 'Parameters -> Perspective -> 'Result
-
 /// Public query interface into a given Perspective.
 /// Used by queries, strategies and standalone analysis code to retrieve observations from a Perspective.
 type IPerspectiveQueries =
@@ -56,6 +47,16 @@ type IPerspectiveQueries =
     /// Todo: get an ordered sequenced of multiple Perception-types
     /// Get an iterator the all Observations of the two types `'Perception1` and `'Perception2` since (as by the runtime clock used for WorldEventStream sequencing) the passed `timestamp`.
     abstract member since<'Perception1, 'Perception2> : timestamp: DateTime -> System.ValueTuple<Observation<'Perception1> option, Observation<'Perception2> option> seq
+
+[<IsReadOnly; Struct>]
+type Perspective = {
+    /// This references a Sdk.Runtime.DataModel.PerspectiveSequenceHead, which in turn references
+    /// all (in this perspective) available observations accross all Perception-types.
+    HashOfLatestPerspectiveSequenceHead: int32
+    Query: IPerspectiveQueries
+}
+
+type Query<'Parameters, 'Result> = 'Parameters -> Perspective -> 'Result
 
 // ######################
 // ####   STRATEGY   ####
