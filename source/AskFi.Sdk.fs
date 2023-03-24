@@ -11,8 +11,8 @@ open System
 // Todo: implement equitable. And make it collision-resistant between Observer instances that use the same underlying bynary repsesentation but refer to different (i.e. their own) ObservationSessions.
 // In the runtime, it's represented as untyped bytes. Three identities are namespaced within an IObserver-instance.
 [<IsReadOnly; Struct>]
-type ObservationSession =
-    | ObservationSession of uint64
+type ContinuityCorrelationId =
+    | ContinuityCorrelationId of uint64
 
 /// An atomic appearance of sensory information.
 /// Includes a Perception, which is a typed (via a domain model) representaton of the newly observed information.
@@ -22,7 +22,7 @@ type ObservationSession =
 /// (useful for expressing that the observation was exaustive, e.g. there were no trades in between these two observed trades because they are immediat "neighbors" within the same observation session)
 [<IsReadOnly; Struct>]
 type Observation<'Perception> = {
-    Session: ObservationSession
+    Continuity: ContinuityCorrelationId option
     Perceptions: 'Perception ReadOnlyMemory
 }
 
