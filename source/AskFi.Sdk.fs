@@ -35,9 +35,9 @@ type IObserver<'Perception> =
 
 [<IsReadOnly; Struct>]
 type WorldState = {
-    /// This references a Sdk.Runtime.WorldEventSequence, which in turn references
-    /// all (in this world) available observations accross all Perception-types.
-    HashOfLatestWorldEventSequence: int32
+    /// This references a Sdk.Runtime.DataModel.PerspectiveSequenceHead, which in turn references
+    /// all (in this perspective) available observations accross all Perception-types.
+    HashOfLatestPerspectiveSequenceHead: int32
 }
 
 type Query<'Parameters, 'Result> = 'Parameters -> WorldState -> 'Result
