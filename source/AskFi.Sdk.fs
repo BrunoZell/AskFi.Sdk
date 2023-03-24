@@ -34,17 +34,17 @@ type IObserver<'Perception> =
 // #####################
 
 [<IsReadOnly; Struct>]
-type WorldState = {
+type Perspective = {
     /// This references a Sdk.Runtime.DataModel.PerspectiveSequenceHead, which in turn references
     /// all (in this perspective) available observations accross all Perception-types.
     HashOfLatestPerspectiveSequenceHead: int32
 }
 
-type Query<'Parameters, 'Result> = 'Parameters -> WorldState -> 'Result
+type Query<'Parameters, 'Result> = 'Parameters -> Perspective -> 'Result
 
 /// Public query interface into a given WorldState.
 /// Used by queries, strategies and standalone analysis code to retrieve observations from a WorldState.
-type IWorldState =
+type IPerspectiveQueries =
     /// Get the latest received perception of the requested type.
     /// Returns `None` if no observation of the requested type has been made yet.
     abstract member latest<'Perception> : unit -> Observation<'Perception> option
@@ -87,7 +87,7 @@ type StrategyReflection = {
 }
 
 /// Contains the code of a strategy decision, called upon each evolution of the RABOT Sessions WorldState (i.e. on every new observation).
-type Decide = StrategyReflection -> WorldState -> Decision
+type Decide = StrategyReflection -> Perspective -> Decision
 
 // ######################
 // ####    BROKER    ####
