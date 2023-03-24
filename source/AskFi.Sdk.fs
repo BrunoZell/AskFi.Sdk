@@ -42,8 +42,8 @@ type Perspective = {
 
 type Query<'Parameters, 'Result> = 'Parameters -> Perspective -> 'Result
 
-/// Public query interface into a given WorldState.
-/// Used by queries, strategies and standalone analysis code to retrieve observations from a WorldState.
+/// Public query interface into a given Perspective.
+/// Used by queries, strategies and standalone analysis code to retrieve observations from a Perspective.
 type IPerspectiveQueries =
     /// Get the latest received perception of the requested type.
     /// Returns `None` if no observation of the requested type has been made yet.
@@ -86,7 +86,7 @@ type StrategyReflection = {
     InitiatedActions: ActionId ReadOnlyMemory
 }
 
-/// Contains the code of a strategy decision, called upon each evolution of the RABOT Sessions WorldState (i.e. on every new observation).
+/// Contains the code of a strategy decision, called upon each evolution of the RABOT Sessions Perspective (i.e. on every new observation).
 type Decide = StrategyReflection -> Perspective -> Decision
 
 // ######################
