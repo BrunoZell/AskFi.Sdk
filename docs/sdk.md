@@ -32,10 +32,8 @@ To understand its meaning, we must relate to the fundamental sensory-motor cycle
 
 Note the two intertwined oppositions:
 
-- wo. orient (inside → inside)
-- wa. act (inside → outside)
-- we. appear (outside → outside)
-- wu. perceive (outside → inside).
+- wa. act (inside → outside)   |   wu. perceive (outside → inside).
+- wo. orient (inside → inside) |   we. appear (outside → outside)
 
 For more context on how this relates to machine learning and artificial intelligence, take a look at the **IEML Neuro-Semantic Architecture** described in [this essay](https://intlekt.io/2022/01/18/ieml-towards-a-paradigm-shift-in-artificial-intelligence/).
 
