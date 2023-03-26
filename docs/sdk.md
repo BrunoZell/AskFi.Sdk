@@ -41,7 +41,7 @@ For more context on how this relates to machine learning and artificial intellig
 
 For the AskFi trading system, we relate each of the four phases  **appear -> perceive -> orient -> act** to an abstract description of the behavior of computer code:
 
-#### Appear
+#### Appear - External Systems
 
 Represents external systems not in direct control of the Askbot operator. Examples include exchanges, distributed ledgers, externally hosted REST APIs, or the physical world itself, accessible through sensors only.
 
@@ -51,7 +51,7 @@ Rules of behavior can be inferred from public documentation, scientific experime
 
 Historic system states can be inferred from observing those systems through their public interaction interface.
 
-#### Perceive
+#### Perceive - Observations
 
 To better reason about the state of external systems, the SDK defines **Observers**.
 
@@ -61,7 +61,7 @@ In case of an exchange, it may listen to order book updates via a WebSocket conn
 
 In case of a Blockchain, it may connect to the p2p network and records all gossiped transactions and blocks.
 
-#### Orient
+#### Orient - Semantic Transformations
 
 It is important to realize that those recorded perceptions are not synonymous with the state of the external system. In most cases, the state itself is not directly accessible.
 
@@ -69,7 +69,7 @@ Therefore, there is some reconstruction to be done to convert recorded perceptio
 
 This is done on a best-effort bases with pragmatism in mind. Only relevant state must be computed, as defined by the trading strategy. Secondly, the rules with which that state is computed may not exactly match the behavior of the system. In some cases this imprecision does not matter. In other cases it does, where it is an iterative process to fine tune the rules so that all recorded observations are in line with the modelled behavior (i.e. there are no inconsistencies).
 
-#### Act
+#### Act - Causal Interventions
 
 Finally, we have the action phase of the cycle. Acting is the way to have causal influence on external systems. What actions are available and what influence they end up having depends on the external system.
 
