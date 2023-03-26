@@ -39,6 +39,46 @@ For more context on how this relates to machine learning and artificial intellig
 
 ### Ontology
 
+For the AskFi trading system, we relate each of the four phases  **appear -> perceive -> orient -> act** to an abstract description of the behavior of computer code:
+
+#### Appear
+
+Represents external systems not in direct control of the Askbot operator. Examples include exchanges, distributed ledgers, externally hosted REST APIs, or the physical world itself, accessible through sensors only.
+
+All these systems have some inherent behavior. An exchange, for example, does order matching in a fairly predictable way. But the rules that govern those systems and the state they are in are only indirectly accessible to an Askbot instance.
+
+Rules of behavior can be inferred from public documentation, scientific experiments, or open source code.
+
+Historic system states can be inferred from observing those systems through their public interaction interface.
+
+#### Perceive
+
+To better reason about the state of external systems, the SDK defines **Observers**.
+
+Observers communicate with the computer networks related to an external system in an effort to extract and record information about it's internal state.
+
+In case of an exchange, it may listen to order book updates via a WebSocket connection.
+
+In case of a Blockchain, it may connect to the p2p network and records all gossiped transactions and blocks.
+
+#### Orient
+
+It is important to realize that those recorded perceptions are not synonymous with the state of the external system. In most cases, the state itself is not directly accessible.
+
+Therefore, there is some reconstruction to be done to convert recorded perceptions into a local imaginative state of the system. for this, the SDK defined **Queries**.
+
+This is done on a best-effort bases with pragmatism in mind. Only relevant state must be computed, as defined by the trading strategy. Secondly, the rules with which that state is computed may not exactly match the behavior of the system. In some cases this imprecision does not matter. In other cases it does, where it is an iterative process to fine tune the rules so that all recorded observations are in line with the modelled behavior (i.e. there are no inconsistencies).
+
+#### Act
+
+Finally, we have the action phase of the cycle. Acting is the way to have causal influence on external systems. What actions are available and what influence they end up having depends on the external system.
+
+For example, a limit order can be sent to an exchange. Although there are certain expectations of what might happen, it really is up to the external system to decide. And whatever ends up manifesting, it can again only indirectly be observed through perceptions. And so the sensory-motor cycle repeats.
+
+To manage action execution, the SDK defined **Brokers**.
+
+### Implementation
+
 Consistes of:
 
 - [Observers](./observations.md) that scrape the external world and produce strongly-typed _Perceptions_,
@@ -47,7 +87,5 @@ Consistes of:
 - [Brokers](./brokers.md) that take an _Action_ initiation and send according network IO to external computer networks, essentially executing the requested _Action_.
 
 A [Runtime](https://github.com/BrunoZell/AskFi.Runtime) is used to compose the execution of _Observers_, _Queries_, _Strategies_, and _Brokers_.
-
-### Implementation
 
 See the code [here](../source/AskFi.Sdk.fs).
