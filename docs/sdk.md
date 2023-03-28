@@ -125,6 +125,16 @@ Such an authentication interface is not yet defined in the SDK. It is scheduled 
 
 ### Execution
 
+Execution in the SDK is implemented via **Brokers** (type `AskFi.Sdk.IBroker<Action>`).
+
+Each broker accepts instance of their `Action`-type and initiate it's execution, potentially collecting evidence of it.
+
+e. (can) is captured by the `Action`-type, which is all possible commands a broker accepts.
+
+i. (do) represents a broker actually executing an action.
+
+The group _Exection_ may also refer to individuals who behave in a certain way. Altough the SDK does not specify any types for that since consciousnuss and decision making in the brain are not really measured. Such actions or inactions of humans are observed just as any other external system.
+
 ### Coordination
 
 Coordination, covering o. (want) and a. (commit), is about a structured conversation among subjects to collaborate and steer reality into a desired direction. Esentially it is about placing signs in the environment so that all actions done by subjects are compatible with each other and won't result in conflict.
