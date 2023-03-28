@@ -47,7 +47,7 @@ Read more about the six semantic primitives **Virtual, Actual, Sign, Being, Thin
 
 Read more about the 25 lowercase symbols in IEML [here](https://intlekt.io/25-basic-categories/).
 
-While these are useful and ubiquitus categories, for the sake of implementation, AskFi groups the IEML alphabet into eight domains of implementation: **Observation, Authentication, Simulation, Coordination, Execution, Consensus, SDK, Human Domain**:
+While these are useful and ubiquitus categories, for the sake of implementation, AskFi groups the IEML alphabet into eight domains of implementation: **Observation, Query, Authentication, Coordination, Execution, Consensus, SDK, Human Domain**:
 
 ![SDK Components](./images/components.png)
 
@@ -61,7 +61,7 @@ There is no explicit code relating to this group. Instead, it stands for the beh
 
 _Observation_ contains j. (idea) and g. (message). It sits at the transition from the actual into the virtual and takes care of wu. (perception).
 
-For that, the SDK defines **Observers**.
+For that, the SDK defines **Observers** (type `AskFi.Sdk.IObserver<Perception>`).
 
 Observers communicate with the computer networks related to an external system in an effort to extract and record information about it's internal state.
 
@@ -69,9 +69,17 @@ In case of an exchange, it may listen to order book updates via a WebSocket conn
 
 In case of a Blockchain, it may connect to the p2p network and records all gossiped transactions and blocks.
 
-### Simulation
+### Query
+
+After the actuality of external systems has been mapped to virtual ideas, the system has access to that information.
+
+_Observations_ are the only source of information, but there still is a need to semantically transform and combine that information into higher level ideas and abstractions.
+
+For that, the SDK defined **Queries** (type `AskFi.Sdk.Query`), which are pure functions over a _Perspecive_, which is, broadly speaking, a collection of observations.
 
 ### Authentication
+
+Such an authentication interface is not yet defined in the SDK. It is scheduled for a later version when trust requirements get more important.
 
 ### Coordination
 
