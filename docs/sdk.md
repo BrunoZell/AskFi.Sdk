@@ -18,11 +18,9 @@ This is important so the user is not constrained by the system in a deal-breakin
 
 Furthermore, it allows to author fairly generalized algorithms to optimize user-defined values, which is esential for automated counterparty discovery in the Ask Finance protocol.
 
-## Structure
+## Sensory-Motor Cycle
 
 Overall the SDK models the sensory-motor cycle. But in a way that allows for reusable infrastructure and tooling built for it.
-
-### Sensory-Motor Cycle
 
 In [IEML](https://intlekt.io/ieml/), the sensory-motor cycle can be found in the Virtual/Actual Binary Symmetry, also called _Interaction Phases_ and looks like this:
 
@@ -37,9 +35,51 @@ Note the two intertwined oppositions:
 
 For more context on how this relates to machine learning and artificial intelligence, take a look at the **IEML Neuro-Semantic Architecture** described in [this essay](https://intlekt.io/2022/01/18/ieml-towards-a-paradigm-shift-in-artificial-intelligence/).
 
-### Ontology
+## Ontology
 
-For the AskFi trading system, we relate each of the four phases  **appear -> perceive -> orient -> act** to an abstract description of the behavior of computer code:
+For the AskFi trading system, we further break up the four phases  **manifestation -> perception -> orientation -> action** by means of the two Hexads _Actors_ (green) and _Actions_ (yellow):
+
+![Lowercase Letters](./images/letters.png)
+
+So far, this is just standard IEML and nothing unique to AskFi.
+
+Read more about the six semantic primitives **Virtual, Actual, Sign, Being, Thing** [here](https://intlekt.io/semantic-primitives/).
+
+Read more about the 25 lowercase symbols in IEML [here](https://intlekt.io/25-basic-categories/).
+
+While these are useful and ubiquitus categories, for the sake of implementation, AskFi groups the IEML alphabet into eight domains of implementation: **Observation, Authentication, Simulation, Coordination, Execution, Consensus, SDK, Human Domain**:
+
+![SDK Components](./images/components.png)
+
+### SDK
+
+First, at the top left corner, there is the group _SDK_ which is the sensory-motor cycle it attempts to practically model.
+
+There is no explicit code relating to this group. Instead, it stands for the behavior of all external systems not in direct control of the Askbot operator. Examples include exchanges, distributed ledgers, externally hosted REST APIs, or the physical world itself, accessible through sensors only.
+
+### Observation
+
+_Observation_ contains j. (idea) and g. (message). It sits at the transition from the actual into the virtual and takes care of wu. (perception).
+
+For that, the SDK defines **Observers**.
+
+Observers communicate with the computer networks related to an external system in an effort to extract and record information about it's internal state.
+
+In case of an exchange, it may listen to order book updates via a WebSocket connection.
+
+In case of a Blockchain, it may connect to the p2p network and records all gossiped transactions and blocks.
+
+### Simulation
+
+### Authentication
+
+### Coordination
+
+### Execution
+
+### Consensus
+
+### Human Domain
 
 #### Appear - External Systems
 
@@ -53,13 +93,6 @@ Historic system states can be inferred from observing those systems through thei
 
 #### Perceive - Observations
 
-To better reason about the state of external systems, the SDK defines **Observers**.
-
-Observers communicate with the computer networks related to an external system in an effort to extract and record information about it's internal state.
-
-In case of an exchange, it may listen to order book updates via a WebSocket connection.
-
-In case of a Blockchain, it may connect to the p2p network and records all gossiped transactions and blocks.
 
 #### Orient - Semantic Transformations
 
