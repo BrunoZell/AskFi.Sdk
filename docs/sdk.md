@@ -127,7 +127,9 @@ Such an authentication interface is not yet defined in the SDK. It is scheduled 
 
 ### Coordination
 
-The coordination protocol is what we call AskFi, or Ask Finance. You can read the specification of it [here](https://github.com/BrunoZell/ask.fi).
+Coordination, covering o. (want) and a. (commit), is about a structured conversation among subjects to collaborate and steer reality into a desired direction. Esentially it is about placing signs in the environment so that all actions done by subjects are compatible with each other and won't result in conflict.
+
+The coordination protocol is what we call _AskFi_, or _Ask Finance_. You can read the specification of it [here](https://github.com/BrunoZell/ask.fi).
 
 ### Consensus
 
