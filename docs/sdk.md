@@ -111,11 +111,17 @@ After the actuality of external systems has been mapped to virtual ideas, the sy
 
 _Observations_ are the only source of information, but there still is a need to semantically transform and combine that information into higher level ideas and abstractions.
 
-For that, the SDK defined **Queries** (type `AskFi.Sdk.Query`), which are pure functions over a _Perspecive_, which is, broadly speaking, a collection of observations.
+For that, the SDK defined **Queries** (type `AskFi.Sdk.Query`), which are pure functions over a _Perspecive_, which is, broadly speaking, a collection of observations. The result of a query can be though of as the appearance of a new idea.
 
 ### Authentication
 
-Such an authentication interface is not yet defined in the SDK. It is scheduled for a later version when trust requirements get more important.
+In a networked setting across multiple subjects, observations must be verified for some domains in order to be useful.
+
+Esentially, it is about relating the virtual representations c. (individual) and x. (body) to their actual counterparts of h. (subject) or p. (object).
+
+This is called authentication as this verification process typically is based on some form of evidence that messages are indeed reflecting reality to a good enough degree.
+
+Such an authentication interface is not yet defined in the SDK. It is scheduled to be implemented once Asknet is being built, the collaborative market making network.
 
 ### Coordination
 
