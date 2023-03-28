@@ -123,11 +123,17 @@ This is called authentication as this verification process typically is based on
 
 Such an authentication interface is not yet defined in the SDK. It is scheduled to be implemented once Asknet is being built, the collaborative market making network.
 
-### Coordination
-
 ### Execution
 
+### Coordination
+
+The coordination protocol is what we call AskFi, or Ask Finance. You can read the specification of it [here](https://github.com/BrunoZell/ask.fi).
+
 ### Consensus
+
+Consensus, grouping y. (know) and u. (express), represents a convergent data strucure that esentially creates common knowledge by merging perspective into a deduplicated view onto reality.
+
+We are looking to implement a variant of the [Convex Convergent Proof of Stake consensus (CPoS) algorithm](https://convex.world/technology?section=Convergent+Proof+of+Stake) that can accomodate user defined values. i.e. can address all possible wants across all possible perspectives.
 
 ### Human Domain
 
