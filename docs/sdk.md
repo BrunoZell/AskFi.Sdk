@@ -166,7 +166,7 @@ As the ultimate reference, take a look at the type defintions [here](../source/A
 
 ### Observation Subsystem
 
-This subsystem tocuhes these SDK types:
+This subsystem touches these SDK types:
 
 - `AskFi.Sdk.IObserver<'Perception>`
 - `AskFi.Sdk.Observation<'Perception>`
@@ -185,7 +185,18 @@ Each `Pespective` is represented by such an _Perspective Sequence_ under the hoo
 
 ### Query Subsystem
 
-[Queries](./queries.md) aggregate and/or semantically transform those _Perceptions_ into other types (_Query Results_, or: _Appearances_).
+This subsystem touches these SDK types:
+
+- `AskFi.Sdk.IPerspectiveQueries`
+- `AskFi.Sdk.Query<'Parameters, 'Result> = 'Parameters -> Perspective -> 'Result`
+
+The task of this subsystem is to run custom .NET code in the form of `Query = 'Parameters -> Perspective -> 'Result` to aggregate and/or semantically transform observations of a `Perspective` into user defined types.
+
+Note that this process does not add any information to the system. It just transforms the shape of available information into usually more useful data types.
+
+Via `Perspective.Query`, an instance of `IPerspectiveQueries` can be obtained that serves as a window into the basket of all observations available to the system. It defines functions like `latest<'Perception>` to obtain the latest observation of perception classification `'Perception`. Or `since<'Perception>` which iterates all observations of the requested perception type since a passed timestamp.
+
+[Queries](./queries.md) can call other _Queries_ during their execution. The Runtime ensures that results are adequately cached such that the domain modeller can focus on the transformations themself and not on the performance of those implementations.
 
 ### Strategy Subsystem
 
@@ -194,3 +205,4 @@ Each `Pespective` is represented by such an _Perspective Sequence_ under the hoo
 ### Execution Subsystem
 
 [Brokers](./brokers.md) that take an _Action_ initiation and send according network IO to external computer networks, essentially executing the requested _Action_.
+
