@@ -155,11 +155,33 @@ It moreso represents a placeholder for all possible domain models that aim to im
 
 ## Implementation
 
-See the code [here](../source/AskFi.Sdk.fs).
+There are two aspects of implementing this:
+
+- The SDK itself, which poses as a bridge between the IEML ontology described above, and executable code that the ecosystem targes.
+- The [Runtime](https://github.com/BrunoZell/AskFi.Runtime), which is the software that orchestrates the execution of everzthing that is defined in terms if the SDK.
+
+The outline described in this document focusses on how the types defined in F# relate to the categorization described above.
+
+As the ultimate reference, take a look at the type defintions [here](../source/AskFi.Sdk.fs).
 
 ### Observation Subsystem
 
-[Observers](./observations.md) scrape the external world and produce strongly-typed _Perceptions_.
+This subsystem tocuhes these SDK types:
+
+- `AskFi.Sdk.IObserver<'Perception>`
+- `AskFi.Sdk.Observation<'Perception>`
+- `AskFi.Sdk.ContinuityCorrelationId`
+- `AskFi.Sdk.Perspective`
+
+The task of this subsystem is to accept one or more instances if `IObserver<'Perception>` and sequence them into a `Perspective`.
+
+[Observers](./observations.md) scrape the external world and produce strongly-typed _Perceptions_. Observations happen spontaneously. In order to be able to fully deterministically execute all downstream components, it is essential to record the sequence of their occurence at the time of observation.
+
+Therfore, all observations of a single _Observer_ instance are sequenced into an _Observation Sequence_ what essentially boils down to a linked list.
+
+And further, all updates to those _Observation Sequences_ are then merged into a single _Perspective Sequence_, which sequences observations accross all _Observers_ in the session.
+
+Each `Pespective` is represented by such an _Perspective Sequence_ under the hood. This subsystem has a stream of those _Perspectives_ as an output.
 
 ### Query Subsystem
 
@@ -172,7 +194,3 @@ See the code [here](../source/AskFi.Sdk.fs).
 ### Execution Subsystem
 
 [Brokers](./brokers.md) that take an _Action_ initiation and send according network IO to external computer networks, essentially executing the requested _Action_.
-
-### Runtime
-
-A [Runtime](https://github.com/BrunoZell/AskFi.Runtime) is used to compose the execution of _Observers_, _Queries_, _Strategies_, and _Brokers_.
