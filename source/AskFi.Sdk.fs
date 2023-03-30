@@ -77,9 +77,9 @@ type Decision =
 /// at exactly the same timestamp.
 type ActionIdNonce = uint64
 
-/// A unique id created by the RABOT Runtime to uniquely identify an action initiation.
+/// A unique id created by the AskFi Runtime to uniquely identify an action initiation.
 /// This helps to analyze logs and disambiguate actions that are otherwise exactly equal.
-[<Struct>]
+[<IsReadOnly; Struct>]
 type ActionId =
     ActionId of timestamp:DateTime * nonce:ActionIdNonce
 
@@ -87,11 +87,11 @@ type StrategyReflection = {
     InitiatedActions: ActionId ReadOnlyMemory
 }
 
-/// Contains the code of a strategy decision, called upon each evolution of the RABOT Sessions Perspective (i.e. on every new observation).
+/// Contains the code of a strategy decision, called upon each evolution of the Askbot Sessions Perspective (i.e. on every new observation).
 type Decide = StrategyReflection -> Perspective -> Decision
 
 // ######################
-// ####    BROKER    ####
+// ####    ACTION    ####
 // ######################
 
 type IBroker<'Action> =
