@@ -202,7 +202,12 @@ Via `Perspective.Query`, an instance of `IPerspectiveQueries` can be obtained th
 
 [Strategies](./strategies.md) that compose decision-trees out of _Query Results_ (reactive conditions), mapping each case to a _Decision_, which is a (possibly empty) set of _Actions_ to initiate.
 
-### Execution Subsystem
+### Action Subsystem
 
 [Brokers](./brokers.md) that take an _Action_ initiation and send according network IO to external computer networks, essentially executing the requested _Action_.
 
+### Infrastructure Subsystem
+
+This subsystem handles persistence and messaging and is invisible to the SDK. Persisting data and handling network traffic is exactly what _Semantic Engineers_ should not care about.
+
+Read more about this subsystem in the [Runtime documentation](https://github.com/BrunoZell/AskFi.Runtime/blob/main/docs/infrastructure-subsystem.md).
