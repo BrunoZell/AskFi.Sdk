@@ -8,9 +8,10 @@ open System
 // #####################
 
 [<IsReadOnly; Struct>]
-type ContentId =
+type ContentId = {
     // Todo: Make this an IPFS CID respecting multihash and multicodec
-    ContentId of byte ReadOnlyMemory
+    Raw: byte ReadOnlyMemory
+}
 
 type EncodedIdea = {
     /// Content-id of the idea. This is a hash of this ideas 'Content' and is used throughout
@@ -23,7 +24,7 @@ type EncodedIdea = {
 
 type Serializer =
     abstract member serialize<'Idea> : 'Idea -> EncodedIdea
-    abstract member deserialize<'Idea> : EncodedIdea -> 'Idea option
+    abstract member deserialize<'Idea> : EncodedIdea -> 'Idea
 
 type Idea =
     abstract member serializer : Serializer
