@@ -200,9 +200,27 @@ Via `Perspective.Query`, an instance of `IPerspectiveQueries` can be obtained th
 
 ### Strategy Subsystem
 
-[Strategies](./strategies.md) that compose decision-trees out of _Query Results_ (reactive conditions), mapping each case to a _Decision_, which is a (possibly empty) set of _Actions_ to initiate.
+This subsystem touches these SDK types:
+
+- `type Decide = StrategyReflection -> Perspective -> Decision`
+- `AskFi.Sdk.StrategyReflection`
+- `AskFi.Sdk.Perspective`
+- `AskFi.Sdk.Decision`
+- `AskFi.Sdk.ActionId`
+- `AskFi.Sdk.ActionIdNonce`
+- `AskFi.Sdk.ActionInitiation`
+- `AskFi.Sdk.ActionSet`
+
+[Strategies](./strategies.md) that compose decision-trees out of _Queries_ (reactive conditions), mapping each case to a _Decision_, which is a (possibly empty) set of _Actions_ to initiate.
+
+Actions that have been decided on to be initiated are sent to the _Action Subsystem_.
 
 ### Action Subsystem
+
+This subsystem touches these SDK types:
+
+- `AskFi.Sdk.IBroker<'Action>`
+- `AskFi.Sdk.ActionId`
 
 [Brokers](./brokers.md) that take an _Action_ initiation and send according network IO to external computer networks, essentially executing the requested _Action_.
 
