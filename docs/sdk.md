@@ -83,7 +83,7 @@ Read more about the six semantic primitives **Virtual, Actual, Sign, Being, Thin
 
 Read more about the 25 lowercase symbols in IEML [here](https://intlekt.io/25-basic-categories/).
 
-While these are useful and ubiquitus categories, for the sake of implementation, AskFi groups the IEML alphabet into eight domains of implementation: **Observation, Query, Authentication, Coordination, Execution, Consensus, SDK, Human Domain**:
+While these are useful and ubiquitus categories, for the sake of implementation, AskFi groups the IEML alphabet into eight domains of implementation: **SDK, Observation, Query, Authentication, Execution, Coordination, Consensus, and Human Domain**:
 
 ![SDK Components](./images/components.png)
 
