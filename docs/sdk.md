@@ -145,7 +145,7 @@ The coordination protocol is what we call _AskFi_, or _Ask Finance_. You can rea
 
 Consensus, grouping y. (know) and u. (express), represents a convergent data strucure that esentially creates common knowledge by merging perspective into a deduplicated view onto reality.
 
-We are looking to implement a variant of the [Convex Convergent Proof of Stake consensus (CPoS) algorithm](https://convex.world/technology?section=Convergent+Proof+of+Stake) that can accomodate user defined values. i.e. can address all possible wants across all possible perspectives.
+We are looking to implement a variant of the [Convex Convergent Proof of Stake consensus (CPoS) algorithm](https://convex.world/technology?section=Convergent+Proof+of+Stake) that can accomodate user defined values, i.e. can address all possible wants across all possible perspectives.
 
 ### Human Domain
 
