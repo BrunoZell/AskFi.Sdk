@@ -162,7 +162,7 @@ There are two aspects of implementing this:
 
 The outline described in this document focusses on how the types defined in F# relate to the categorization described above.
 
-As the ultimate reference, take a look at the type defintions [here](../source/AskFi.Sdk.fs).
+As the ultimate reference, take a look at the [SDK type defintions](../source/AskFi.Sdk.fs) themself.
 
 ### Observation Subsystem
 
@@ -228,4 +228,4 @@ This subsystem touches these SDK types:
 
 This subsystem handles persistence and messaging and is invisible to the SDK. Persisting data and handling network traffic is exactly what _Semantic Engineers_ should not care about.
 
-Read more about this subsystem in the [Runtime documentation](https://github.com/BrunoZell/AskFi.Runtime/blob/main/docs/infrastructure-subsystem.md).
+Read more about this subsystem in the [Runtime documentation](https://github.com/BrunoZell/AskFi.Runtime/blob/main/docs/infrastructure-component.md).
