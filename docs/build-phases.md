@@ -61,4 +61,5 @@ Enables:
 - A non-monetary economy more efficient and effective than money:
   - More efficient in that it can provide the same service at a lower cost
   - More effective in that it has a tendency to offer a better service than every other economy
-- Transition to "Adoption Phases"
+
+At this point, the SDK is mostly complete. The project is mature and now focusses on ecosystem growth. For that, we lay out the [Adoption Phases](./adoption-phases.md).
