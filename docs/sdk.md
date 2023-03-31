@@ -117,11 +117,11 @@ For that, the SDK defined **Queries** (type `AskFi.Sdk.Query`), which are pure f
 
 In a networked setting across multiple subjects, observations must be verified for some domains in order to be useful.
 
-Esentially, it is about relating the virtual representations c. (individual) and x. (body) to their actual counterparts of h. (subject) or p. (object).
+Essentially, it is about relating the virtual representations c. (individual) and x. (body) to their actual counterparts of h. (subject) or p. (object).
 
 This is called authentication as this verification process typically is based on some form of evidence that messages are indeed reflecting reality to a good enough degree.
 
-Such an authentication interface is not yet defined in the SDK. It is scheduled to be implemented once Asknet is being built, the collaborative market making network.
+Such an authentication interface is not yet defined in the SDK. It is scheduled to be implemented once Asknet is being built, the collaborative market making network. For data validation, we are expecting to use the L0 data model from [HGTP (Hypergraph Transfer Protocol)](https://docs.constellationnetwork.io/learn/).
 
 ### Execution
 
