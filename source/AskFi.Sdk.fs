@@ -26,9 +26,6 @@ type Serializer =
     abstract member serialize<'Idea> : 'Idea -> EncodedIdea
     abstract member deserialize<'Idea> : EncodedIdea -> 'Idea
 
-type Idea =
-    abstract member serializer : Serializer
-
 // ######################
 // #### OBSERVATIONS ####
 // ######################
