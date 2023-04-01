@@ -9,7 +9,7 @@ open System
 [<IsReadOnly; Struct>]
 type ContentId = {
     // Todo: Make this an IPFS CID respecting multihash and multicodec
-    Raw: byte ReadOnlyMemory
+    Raw: byte array
 }
 
 type EncodedIdea = {
@@ -18,7 +18,7 @@ type EncodedIdea = {
     Cid: ContentId
 
     /// Serialized data of the idea. Can be deserialized into an instance of the original 'Idea-type.
-    Content: byte ReadOnlyMemory
+    Content: byte array
 }
 
 type Serializer =
