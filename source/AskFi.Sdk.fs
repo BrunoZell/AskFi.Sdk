@@ -70,7 +70,7 @@ type ActionInitiation = {
 
 type Decision =
     | Inaction
-    | Initiate of Initiatives:ActionInitiation seq
+    | Initiate of Initiatives: ActionInitiation array
     
 type IReflectionQueries = interface end
 
@@ -79,6 +79,7 @@ type Reflection = {
     /// This references a Sdk.Runtime.DataModel.SessionSequenceHead, which in turn references
     /// all (in this session) actions that have been decided in across all Action-types.
     LatestSessionSequenceHead: ContentId
+    Query: IReflectionQueries
 }
 
 /// Contains the code of a strategy decision, called upon each evolution of the Askbot Sessions Perspective (i.e. on every new observation).
