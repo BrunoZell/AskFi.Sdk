@@ -1,6 +1,7 @@
 module AskFi.Sdk
 open System.Collections.Generic
 open System.Runtime.CompilerServices
+open System.Threading.Tasks
 open System
 open AskFi.Persistence
 
@@ -85,9 +86,9 @@ type Reflection = {
 /// Contains the code of a strategy decision, called upon each evolution of the Askbot Sessions Perspective (i.e. on every new observation).
 type Decide = Reflection -> Perspective -> Decision
 
-// ######################
-// ####    ACTION    ####
-// ######################
+// #####################
+// ####  EXECUTION  ####
+// #####################
 
 type IBroker<'Action> =
-    abstract member Execute : 'Action -> unit
+    abstract member Execute : 'Action -> Task
