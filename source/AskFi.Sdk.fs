@@ -43,11 +43,11 @@ type IPerspectiveQueries =
 
     /// Get an iterator the all Observations of type `'Perception` since the passed `timestamp`
     /// (as determined by the runtime clock used during WorldEventStream sequencing).
-    abstract member since<'Perception> : timestamp: DateTime -> Observation<'Perception> IAsyncEnumerable
+    abstract member since<'Perception> : timestamp: DateTime -> Observation<'Perception> seq
 
     /// Todo: get an ordered sequenced of multiple Perception-types
     /// Get an iterator the all Observations of the two types `'Perception1` and `'Perception2` since (as by the runtime clock used for WorldEventStream sequencing) the passed `timestamp`.
-    abstract member since<'Perception1, 'Perception2> : timestamp: DateTime -> System.ValueTuple<Observation<'Perception1> option, Observation<'Perception2> option> IAsyncEnumerable
+    abstract member since<'Perception1, 'Perception2> : timestamp: DateTime -> System.ValueTuple<Observation<'Perception1> option, Observation<'Perception2> option> seq
 
 [<IsReadOnly; Struct>]
 type Perspective = {
