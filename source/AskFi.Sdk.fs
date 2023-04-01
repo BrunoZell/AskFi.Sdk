@@ -68,32 +68,25 @@ type ActionInitiation = {
     Type: System.Type
 }
 
-type ActionSet = ActionSet of Initiatives:ActionInitiation ReadOnlyMemory
-
 type Decision =
     | Inaction
-    | Initiate of ActionSet:ActionSet
+    | Initiate of Initiatives:ActionInitiation seq
+    
+type IReflectionQueries = interface end
 
-/// Describes the random part of an ActionId to disambiguate between actions that got initiated
-/// at exactly the same timestamp.
-type ActionIdNonce = uint64
-
-/// A unique id created by the AskFi Runtime to uniquely identify an action initiation.
-/// This helps to analyze logs and disambiguate actions that are otherwise exactly equal.
 [<IsReadOnly; Struct>]
-type ActionId =
-    ActionId of timestamp:DateTime * nonce:ActionIdNonce
-
-type StrategyReflection = {
-    InitiatedActions: ActionId ReadOnlyMemory
+type Reflection = {
+    /// This references a Sdk.Runtime.DataModel.SessionSequenceHead, which in turn references
+    /// all (in this session) actions that have been decided in across all Action-types.
+    LatestSessionSequenceHead: ContentId
 }
 
 /// Contains the code of a strategy decision, called upon each evolution of the Askbot Sessions Perspective (i.e. on every new observation).
-type Decide = StrategyReflection -> Perspective -> Decision
+type Decide = Reflection -> Perspective -> Decision
 
 // ######################
 // ####    ACTION    ####
 // ######################
 
 type IBroker<'Action> =
-    abstract member Execute : ActionId * 'Action -> unit
+    abstract member Execute : 'Action -> unit

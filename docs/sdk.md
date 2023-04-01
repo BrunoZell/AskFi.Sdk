@@ -202,8 +202,8 @@ Via `Perspective.Query`, an instance of `IPerspectiveQueries` can be obtained th
 
 This subsystem touches these SDK types:
 
-- `type Decide = StrategyReflection -> Perspective -> Decision`
-- `AskFi.Sdk.StrategyReflection`
+- `type Decide = Reflection -> Perspective -> Decision`
+- `AskFi.Sdk.Reflection`
 - `AskFi.Sdk.Perspective`
 - `AskFi.Sdk.Decision`
 - `AskFi.Sdk.ActionId`
