@@ -24,7 +24,7 @@ type ContinuityCorrelationId =
 [<IsReadOnly; Struct>]
 type Observation<'Perception> = {
     Continuity: ContinuityCorrelationId option
-    Perceptions: 'Perception ReadOnlyMemory
+    Perceptions: 'Perception array
 }
 
 type IObserver<'Perception> =
