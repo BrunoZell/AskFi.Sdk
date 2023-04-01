@@ -86,9 +86,9 @@ type Reflection = {
 /// Contains the code of a strategy decision, called upon each evolution of the Askbot Sessions Perspective (i.e. on every new observation).
 type Decide = Reflection -> Perspective -> Decision
 
-// #####################
-// ####  EXECUTION  ####
-// #####################
+// ####################
+// ####   ACTION   ####
+// ####################
 
 type IBroker<'Action> =
     abstract member Execute : 'Action -> Task
