@@ -2,6 +2,7 @@ module AskFi.Sdk
 open System.Collections.Generic
 open System.Runtime.CompilerServices
 open System
+open AskFi.Persistence
 
 // ######################
 // #### OBSERVATIONS ####
@@ -23,7 +24,7 @@ type ContinuityCorrelationId =
 [<IsReadOnly; Struct>]
 type Observation<'Perception> = {
     Continuity: ContinuityCorrelationId option
-    Perceptions: 'Perception ReadOnlyMemory
+    Perceptions: 'Perception array
 }
 
 type IObserver<'Perception> =
@@ -52,7 +53,7 @@ type IPerspectiveQueries =
 type Perspective = {
     /// This references a Sdk.Runtime.DataModel.PerspectiveSequenceHead, which in turn references
     /// all (in this perspective) available observations across all Perception-types.
-    HashOfLatestPerspectiveSequenceHead: int32
+    LatestPerspectiveSequenceHead: ContentId
     Query: IPerspectiveQueries
 }
 
