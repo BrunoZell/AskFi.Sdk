@@ -77,9 +77,9 @@ type IReflectionQueries = interface end
 
 [<IsReadOnly; Struct>]
 type Reflection = {
-    /// This references a Sdk.Runtime.DataModel.SessionSequenceHead, which in turn references
+    /// This references a Sdk.Runtime.DataModel.DecisionSequenceHead, which in turn references
     /// all (in this session) actions that have been decided in across all Action-types.
-    LatestSessionSequenceHead: ContentId
+    LatestDecisionSequenceHead: ContentId
     Query: IReflectionQueries
 }
 
