@@ -86,21 +86,29 @@ type Reflection = {
 /// Contains the code of a strategy decision, called upon each evolution of the Askbot Sessions Perspective (i.e. on every new observation).
 type Decide = Reflection -> Perspective -> Decision
 
-// #####################
-// #### EXPECTATION ####
-// #####################
+// ####################
+// #### SIMULATION ####
+// ####################
 
-/// Identity: Functional key to correlate multiple perspectives on the same object.
-/// Object: A strongly-typed state of that object, as inferred from observations or expectations.
-type Construction<'Identity, 'Object> = 'Identity * 'Object
+/// Query results can return types that implement this interface.
+/// 'InstanceKey is an equitable type thats used to correlate views to their instance that view refers to.
+/// Which means, each class of objects has an instance-space indexed by it's 'InstanceKey type. When it is equal, it's the same instance and the views can be merged.
+/// Also, there can be multiple views be implemented for the same object class (different objects are grouped by their unique 'InstanceKey type). This is to
+/// support *all possible phrases* that talk about the object, with each phrase ranging in detail, perspective, authenticity of that object. This basically supports all possible perspectives of an object.
+type IObjectReference<'InstanceKey when 'InstanceKey : equality> =
+    abstract member Identity : 'InstanceKey
 
-type Expectation = {
-    /// Constructions can be seen as state updates within a domains object namespace.
-    /// If an object is affected by an observation or expectation, it is assigned a new state, as derived from the situational analysis.
-    Constructions: Map<int64, obj>
+/// Expectations are expressed as "references to an object that would expectedly returned by one or more queries once the expected observations roll in".
+/// This allows expectations to reference abstract objects instead of uninterpreted observations, and still supports all user defined queries.
+type Expectation<'InstanceKey, 'Phrase when 'Phrase :> IObjectReference<'InstanceKey> and 'InstanceKey : equality> = {
+    References: 'Phrase list
 }
 
-type Constructor = Perspective -> Reflection -> Expectation
+type Expectations = {
+    Expectations: obj list // Expectation<_, _>
+}
+
+type Simulate<'Action> = Perspective -> 'Action -> Expectations
 
 // ####################
 // ####   ACTION   ####
