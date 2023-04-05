@@ -97,7 +97,7 @@ type Construction<'Identity, 'Object> = 'Identity * 'Object
 type Expectation = {
     /// Constructions can be seen as state updates within a domains object namespace.
     /// If an object is affected by an observation or expectation, it is assigned a new state, as derived from the situational analysis.
-    Constructions: Construction<uint64, obj>
+    Constructions: Map<int64, obj>
 }
 
 type Constructor = Perspective -> Reflection -> Expectation
