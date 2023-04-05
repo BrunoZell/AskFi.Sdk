@@ -50,6 +50,15 @@ type IPerspectiveQueries =
     /// Get an iterator the all Observations of the two types `'Perception1` and `'Perception2` since (as by the runtime clock used for WorldEventStream sequencing) the passed `timestamp`.
     abstract member since<'Perception1, 'Perception2> : timestamp: DateTime -> System.ValueTuple<Observation<'Perception1> option, Observation<'Perception2> option> seq
 
+type Scene = {
+    // Every scene is generated from a single Observation<'P>, thus a single known 'P
+    PerceptionType: Type
+
+    // typeof(InstanceKey) -> 'InstanceKey set
+    // Across all possible 'InstanceKey (i.e. object classes), list all referenced (instantiated) instances
+    ObjectInstances: Map<string, obj list>
+}
+
 [<IsReadOnly; Struct>]
 type Perspective = {
     /// This references a Sdk.Runtime.DataModel.PerspectiveSequenceHead, which in turn references
@@ -58,7 +67,7 @@ type Perspective = {
     Query: IPerspectiveQueries
 }
 
-type Query<'Parameters, 'Result> = 'Parameters -> Perspective -> 'Result
+type Query<'Parameters, 'Result> = 'Parameters -> Perspective * Scene -> 'Result
 
 // ######################
 // ####   STRATEGY   ####
@@ -90,25 +99,13 @@ type Decide = Reflection -> Perspective -> Decision
 // #### SIMULATION ####
 // ####################
 
-/// Query results can return types that implement this interface.
-/// 'InstanceKey is an equitable type thats used to correlate views to their instance that view refers to.
-/// Which means, each class of objects has an instance-space indexed by it's 'InstanceKey type. When it is equal, it's the same instance and the views can be merged.
-/// Also, there can be multiple views be implemented for the same object class (different objects are grouped by their unique 'InstanceKey type). This is to
-/// support *all possible phrases* that talk about the object, with each phrase ranging in detail, perspective, authenticity of that object. This basically supports all possible perspectives of an object.
-type IObjectReference<'InstanceKey when 'InstanceKey : equality> =
-    abstract member Identity : 'InstanceKey
+type Interpreter<'Perception, 'InstanceKey when 'InstanceKey : equality> =
+    abstract member Interpret : 'Perception -> 'InstanceKey list
 
-/// Expectations are expressed as "references to an object that would expectedly returned by one or more queries once the expected observations roll in".
-/// This allows expectations to reference abstract objects instead of uninterpreted observations, and still supports all user defined queries.
-type Expectation<'InstanceKey, 'Phrase when 'Phrase :> IObjectReference<'InstanceKey> and 'InstanceKey : equality> = {
-    References: 'Phrase list
-}
-
-type Expectations = {
-    Expectations: obj list // Expectation<_, _>
-}
-
-type Simulate<'Action> = Perspective -> 'Action -> Expectations
+/// Simulation function generates fictional observations.
+/// Those are free not to use the object classed used to interpret actual observations.
+/// They can create independent expectation object classes like 'VirtualTrade' in case of order book backtesting.
+type Simulate<'Action> = Perspective * Scene -> 'Action -> Scene
 
 // ####################
 // ####   ACTION   ####
