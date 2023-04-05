@@ -86,6 +86,22 @@ type Reflection = {
 /// Contains the code of a strategy decision, called upon each evolution of the Askbot Sessions Perspective (i.e. on every new observation).
 type Decide = Reflection -> Perspective -> Decision
 
+// #####################
+// #### EXPECTATION ####
+// #####################
+
+/// Identity: Functional key to correlate multiple perspectives on the same object.
+/// Object: A strongly-typed state of that object, as inferred from observations or expectations.
+type Construction<'Identity, 'Object> = 'Identity * 'Object
+
+type Expectation = {
+    /// Constructions can be seen as state updates within a domains object namespace.
+    /// If an object is affected by an observation or expectation, it is assigned a new state, as derived from the situational analysis.
+    Constructions: Construction<uint64, obj>
+}
+
+type Constructor = Perspective -> Reflection -> Expectation
+
 // ####################
 // ####   ACTION   ####
 // ####################
