@@ -5,9 +5,9 @@ open System.Threading.Tasks
 open System
 open AskFi.Persistence
 
-// ######################
-// #### OBSERVATIONS ####
-// ######################
+// #########################
+// #### OBSERVER MODULE ####
+// #########################
 
 /// An atomic appearance of sensory information.
 /// Includes a Perception, which is a typed (via a domain model) representation of the newly observed information.
@@ -21,9 +21,9 @@ type Observation<'Perception> = {
 type IObserver<'Perception> =
     abstract member Observations : IAsyncEnumerable<Observation<'Perception>>
 
-// #####################
-// ####   QUERIES   ####
-// #####################
+// ################################
+// ####   PERSPECTIVE MODULE   ####
+// ################################
 
 /// Public query interface into a given Perspective.
 /// Used by queries, strategies and standalone analysis code to retrieve observations from a Perspective.
@@ -50,14 +50,15 @@ type Perspective = {
 
 type Query<'Parameters, 'Result> = 'Parameters -> Perspective -> 'Result
 
-// ######################
-// ####   STRATEGY   ####
-// ######################
+// #############################
+// ####   STRATEGY MODULE   ####
+// #############################
 
 type ActionInitiation = {
     Action: obj
     Type: System.Type
 }
+
 type Decision =
     | Inaction
     | Initiate of Initiatives: ActionInitiation array
@@ -75,9 +76,9 @@ type Reflection = {
 /// Contains the code of a strategy decision, called upon each evolution of the Askbot Sessions Perspective (i.e. on every new observation).
 type Decide = Reflection -> Perspective -> Decision
 
-// ######################
-// ####    ACTION    ####
-// ######################
+// ##############################
+// ####   EXECUTION MODULE   ####
+// ##############################
 
 type IBroker<'Action> =
     abstract member Execute : 'Action -> Task
