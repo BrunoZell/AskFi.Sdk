@@ -3,7 +3,6 @@ open System.Collections.Generic
 open System.Runtime.CompilerServices
 open System.Threading.Tasks
 open System
-open AskFi.Persistence
 
 // #########################
 // #### OBSERVER MODULE ####
@@ -42,9 +41,8 @@ type IPerspectiveQueries =
 
 [<IsReadOnly; Struct>]
 type Perspective = {
-    /// This references a Sdk.Runtime.DataModel.PerspectiveSequenceHead, which in turn references
-    /// all (in this perspective) available observations across all Perception-types.
-    LatestPerspectiveSequenceHead: ContentId
+    /// Built in default query interface for the runtimes Perspective Sequence
+    /// "AskFi.Runtime.DataModel.PerspectiveSequenceHead"
     Query: IPerspectiveQueries
 }
 
@@ -67,9 +65,8 @@ type IReflectionQueries = interface end
 
 [<IsReadOnly; Struct>]
 type Reflection = {
-    /// This references a Sdk.Runtime.DataModel.DecisionSequenceHead, which in turn references
-    /// all (in this session) actions that have been decided in across all Action-types.
-    LatestDecisionSequenceHead: ContentId
+    /// Built in default query interface for the runtimes Decision Sequence
+    /// "AskFi.Runtime.DataModel.DecisionSequenceHead"
     Query: IReflectionQueries
 }
 
