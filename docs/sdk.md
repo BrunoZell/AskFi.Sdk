@@ -158,20 +158,18 @@ It moreso represents a placeholder for all possible domain models that aim to im
 There are two aspects of implementing this:
 
 - The SDK itself, which poses as a bridge between the IEML ontology described above, and executable code that the ecosystem targes.
-- The [Runtime](https://github.com/BrunoZell/AskFi.Runtime), which is the software that orchestrates the execution of everzthing that is defined in terms if the SDK.
+- The [Runtime](https://github.com/BrunoZell/AskFi.Runtime), which is the software that orchestrates the execution of everything that is defined in terms if the SDK.
 
 The outline described in this document focusses on how the types defined in F# relate to the categorization described above.
 
 As the ultimate reference, take a look at the [SDK type defintions](../source/AskFi.Sdk.fs) themself.
 
-### Observation Subsystem
+### Observer Module
 
-This subsystem touches these SDK types:
+This module contains these SDK types:
 
 - `AskFi.Sdk.IObserver<'Percept>`
 - `AskFi.Sdk.Observation<'Percept>`
-- `AskFi.Sdk.ContinuityCorrelationId`
-- `AskFi.Sdk.Perspective`
 
 The task of this subsystem is to accept one or more instances if `IObserver<'Percept>` and sequence them into a `Perspective`.
 
@@ -183,10 +181,11 @@ And further, all updates to those _Observation Sequences_ are then merged into a
 
 Each `Pespective` is represented by such an _Perspective Sequence_ under the hood. This subsystem has a stream of those _Perspectives_ as an output.
 
-### Query Subsystem
+### Perspective Module
 
-This subsystem touches these SDK types:
+This module contains these SDK types:
 
+- `AskFi.Sdk.Perspective`
 - `AskFi.Sdk.IPerspectiveQueries`
 - `AskFi.Sdk.Query<'Parameters, 'Result> = 'Parameters -> Perspective -> 'Result`
 
@@ -198,34 +197,24 @@ Via `Perspective.Query`, an instance of `IPerspectiveQueries` can be obtained th
 
 [Queries](./queries.md) can call other _Queries_ during their execution. The Runtime ensures that results are adequately cached such that the domain modeller can focus on the transformations themself and not on the performance of those implementations.
 
-### Strategy Subsystem
+### Strategy Nodule
 
-This subsystem touches these SDK types:
+This module contains these SDK types:
 
-- `type Decide = StrategyReflection -> Perspective -> Decision`
-- `AskFi.Sdk.StrategyReflection`
-- `AskFi.Sdk.Perspective`
+- `AskFi.Sdk.Reflection`
+- `AskFi.Sdk.IReflectionQueries`
 - `AskFi.Sdk.Decision`
-- `AskFi.Sdk.ActionId`
-- `AskFi.Sdk.ActionIdNonce`
 - `AskFi.Sdk.ActionInitiation`
-- `AskFi.Sdk.ActionSet`
+- `type Decide = Reflection -> Perspective -> Decision`
 
 [Strategies](./strategies.md) that compose decision-trees out of _Queries_ (reactive conditions), mapping each case to a _Decision_, which is a (possibly empty) set of _Actions_ to initiate.
 
-Actions that have been decided on to be initiated are sent to the _Action Subsystem_.
+Actions that have been decided on to be initiated are sent to the _Execution Module_.
 
-### Action Subsystem
+### Execution Module
 
 This subsystem touches these SDK types:
 
 - `AskFi.Sdk.IBroker<'Action>`
-- `AskFi.Sdk.ActionId`
 
 [Brokers](./brokers.md) that take an _Action_ initiation and send according network IO to external computer networks, essentially executing the requested _Action_.
-
-### Infrastructure Subsystem
-
-This subsystem handles persistence and messaging and is invisible to the SDK. Persisting data and handling network traffic is exactly what _Semantic Engineers_ should not care about.
-
-Read more about this subsystem in the [Runtime documentation](https://github.com/BrunoZell/AskFi.Runtime/blob/main/docs/infrastructure-component.md).
