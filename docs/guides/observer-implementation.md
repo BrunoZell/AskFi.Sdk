@@ -1,8 +1,8 @@
 # Observer Implementation Guidelines
 
-## Perception Types
+## Percept Types
 
-Guidelines on how to model _Perceptions_.
+Guidelines on how to model _Percepts_.
 
 ### Embrace Abstraction
 
@@ -18,9 +18,9 @@ Complexities like:
 
 are typically abstracted out for practicality in the domain model. Such details, though very real in the observers implementation, have a negible effect on the relevant view of the observed external system. It keeps the domain model pragmatic, closer to the concepts that matter in strategy development.
 
-Furthermore, all concepts exposed (or better: ingested, referenced, introduced) by perception-types are required to be accurately reverse-engineerd from system simulations. By including complexities listed above in the Perception-Type, all simulations must be capable of simulating such complexities. Given that they generally are not relevant to the domain, it adds unnecessary development overhead for no gain.
+Furthermore, all concepts exposed (or better: ingested, referenced, introduced) by percept-types are required to be accurately reverse-engineerd from system simulations. By including complexities listed above in the Percept-Type, all simulations must be capable of simulating such complexities. Given that they generally are not relevant to the domain, it adds unnecessary development overhead for no gain.
 
-Thus, principle: Always go with the most abstract perception-type that exposes enough information first, only adding more details when it's actually referenced in any queries.
+Thus, principle: Always go with the most abstract percept-type that exposes enough information first, only adding more details when it's actually referenced in any queries.
 
 ### Only use observation sessions with multiple observations when continuity is required by the domain
 

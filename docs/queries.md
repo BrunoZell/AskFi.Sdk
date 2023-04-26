@@ -1,6 +1,6 @@
 # Queries
 
-Aggregate and/or semantically transform _Observations_ from a `Perspective` into different _Ideas_ (the _Query Result_ type). They are different from _Perceptions_ in that _Query Results_ don't add information to the _Perspective_. Instad, queries only interpret available data. But _Query Results_ are 'there' in the same way as _Perceptions_ are there.
+Aggregate and/or semantically transform _Observations_ from a `Perspective` into different _Ideas_ (the _Query Result_ type). They are different from _Percepts_ in that _Query Results_ don't add information to the _Perspective_. Instad, queries only interpret available data. But _Query Results_ are 'there' in the same way as _Percepts_ are there.
 
 Query high level view: A query is a question. A semantic (strongly typed) question frame. The caller (strategies or analyisis code) expects a query to have a signature of `type Query<'Parameters, 'Result> = 'Parameters -> Perspective -> 'Result`. The function should be logically pure, where the same query on the same Perspective always yields exactly the same answer. With this guarantee, the runtime can cache query results to optimize repeated evaluations. (logically pure in a sense of still being able to call IPFS nodes or blockchain archive nodes to resolve content-addressed data).
 

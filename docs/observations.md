@@ -4,4 +4,4 @@ Observations happen spontaneously. Their creation is determined by how the relat
 
 Observers are configured once at _Askbot Instance Build Time_. These static configurations must reference all data sources the bot would ever listen to. No new observers can be added later on the fly. Reason: This better decouples the independent spontaneous production of observations from state management within the _Runtime_.
 
-Implemented via `AskFi.Sdk.IObserver<Perception>`.
+Implemented via `AskFi.Sdk.IObserver<Percept>`.

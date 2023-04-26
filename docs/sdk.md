@@ -57,9 +57,9 @@ In case of a Blockchain, it may connect to the p2p network and records all gossi
 
 ### Orient - Semantic Transformations
 
-It is important to realize that those recorded perceptions are not synonymous with the state of the external system. In most cases, the state itself is not directly accessible.
+It is important to realize that those recorded percepts are not synonymous with the state of the external system. In most cases, the state itself is not directly accessible.
 
-Therefore, there is some reconstruction to be done to convert recorded perceptions into a local imaginative state of the system. for this, the SDK defined **Queries**.
+Therefore, there is some reconstruction to be done to convert recorded percepts into a local imaginative state of the system. for this, the SDK defined **Queries**.
 
 This is done on a best-effort bases with pragmatism in mind. Only relevant state must be computed, as defined by the trading strategy. Secondly, the rules with which that state is computed may not exactly match the behavior of the system. In some cases this imprecision does not matter. In other cases it does, where it is an iterative process to fine tune the rules so that all recorded observations are in line with the modelled behavior (i.e. there are no inconsistencies).
 
@@ -67,13 +67,13 @@ This is done on a best-effort bases with pragmatism in mind. Only relevant state
 
 Finally, we have the action phase of the cycle. Acting is the way to have causal influence on external systems. What actions are available and what influence they end up having depends on the external system.
 
-For example, a limit order can be sent to an exchange. Although there are certain expectations of what might happen, it really is up to the external system to decide. And whatever ends up manifesting, it can again only indirectly be observed through perceptions. And so the sensory-motor cycle repeats.
+For example, a limit order can be sent to an exchange. Although there are certain expectations of what might happen, it really is up to the external system to decide. And whatever ends up manifesting, it can again only indirectly be observed through percepts. And so the sensory-motor cycle repeats.
 
 To manage action execution, the SDK defined **Brokers**.
 
 ## Ontology
 
-For the AskFi trading system, we further break up the four phases  **manifestation -> perception -> orientation -> action** by means of the two Hexads _Actors_ (green) and _Actions_ (yellow):
+For the AskFi trading system, we further break up the four phases  **manifestation -> percept -> orientation -> action** by means of the two Hexads _Actors_ (green) and _Actions_ (yellow):
 
 ![Lowercase Letters](./images/letters.png)
 
@@ -95,9 +95,9 @@ There is no explicit code relating to this group. Instead, it stands for the beh
 
 ### Observation
 
-_Observation_ contains j. (idea) and g. (message). It sits at the transition from the actual into the virtual and takes care of wu. (perception).
+_Observation_ contains j. (idea) and g. (message). It sits at the transition from the actual into the virtual and takes care of wu. (percept).
 
-For that, the SDK defines **Observers** (type `AskFi.Sdk.IObserver<Perception>`).
+For that, the SDK defines **Observers** (type `AskFi.Sdk.IObserver<Percept>`).
 
 Observers communicate with the computer networks related to an external system in an effort to extract and record information about it's internal state.
 
@@ -168,14 +168,14 @@ As the ultimate reference, take a look at the [SDK type defintions](../source/As
 
 This subsystem touches these SDK types:
 
-- `AskFi.Sdk.IObserver<'Perception>`
-- `AskFi.Sdk.Observation<'Perception>`
+- `AskFi.Sdk.IObserver<'Percept>`
+- `AskFi.Sdk.Observation<'Percept>`
 - `AskFi.Sdk.ContinuityCorrelationId`
 - `AskFi.Sdk.Perspective`
 
-The task of this subsystem is to accept one or more instances if `IObserver<'Perception>` and sequence them into a `Perspective`.
+The task of this subsystem is to accept one or more instances if `IObserver<'Percept>` and sequence them into a `Perspective`.
 
-[Observers](./observations.md) scrape the external world and produce strongly-typed _Perceptions_. Observations happen spontaneously. In order to be able to fully deterministically execute all downstream components, it is essential to record the sequence of their occurence at the time of observation.
+[Observers](./observations.md) scrape the external world and produce strongly-typed _Percepts_. Observations happen spontaneously. In order to be able to fully deterministically execute all downstream components, it is essential to record the sequence of their occurence at the time of observation.
 
 Therfore, all observations of a single _Observer_ instance are sequenced into an _Observation Sequence_ what essentially boils down to a linked list.
 
@@ -194,7 +194,7 @@ The task of this subsystem is to run custom .NET code in the form of `Query = 'P
 
 Note that this process does not add any information to the system. It just transforms the shape of available information into usually more useful data types.
 
-Via `Perspective.Query`, an instance of `IPerspectiveQueries` can be obtained that serves as a window into the basket of all observations available to the system. It defines functions like `latest<'Perception>` to obtain the latest observation of perception classification `'Perception`. Or `since<'Perception>` which iterates all observations of the requested perception type since a passed timestamp.
+Via `Perspective.Query`, an instance of `IPerspectiveQueries` can be obtained that serves as a window into the basket of all observations available to the system. It defines functions like `latest<'Percept>` to obtain the latest observation of percept classification `'Percept`. Or `since<'Percept>` which iterates all observations of the requested percept type since a passed timestamp.
 
 [Queries](./queries.md) can call other _Queries_ during their execution. The Runtime ensures that results are adequately cached such that the domain modeller can focus on the transformations themself and not on the performance of those implementations.
 
