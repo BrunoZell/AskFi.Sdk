@@ -1,12 +1,60 @@
 # Ask Finance Strategy Development Kit (SDK)
 
-The AskFi SDK is a library of types written in F# backed by an ontology defined in IEML.
-
-The ontology defines the trading systems abstract data model.
-
-The code library provides the necessary interface types to built strategy and analysis code out of.
+The AskFi trading system consists of an SDK in terms of which domain-specifc logic is specified, a runtime which executes the sensory-motor cycle, and a set of data structures that are produced by executing the runtime.
 
 This document gives an overview about its design and serves as a starting point for everybody interrested in contributing code or developing and operating trading bots.
+
+## SDK
+
+Defines interface types and function signatures used by domain modules to define domain-specific logic.
+
+This library is written in F#, and it can be implemented by any language that compiles into .NET Intermediate Language.
+
+Users can define custom:
+
+- Observation logic (control network communication that produces percepts)
+- Interpretations of observations into semantically computable IEML phrases
+- Strategies that map Scenes of abstract objects to a decision about actions
+- Visualization
+
+[Source Code](https://github.com/BrunoZell/AskFi.Sdk/blob/main/source/AskFi.Sdk.fs)
+
+## Runtime
+
+Which executes domain-implementations defined in terms of the SDK and persists data via data structures defined by the Runtime Data Model.
+
+It is modularized into:
+
+- Observer Group: running one or more `IObserver<'Percept>`
+- Perspective Merge: merging observations from multiples observation groups distributed thrughout space into a temporally ordered sequence
+- Interpretation: applying custom `Interpreter`-implementations on `CapturedObservation`s.
+- Evaluation: expressing preference between `Scene`s.
+- Strategy: executes custom `Strategy`-implementations on a `Scene` and the strategies session `Reflection`.
+- Analysis: executes custom code that can read information from a `Scene` through the _Scene Query Interface_.
+
+[Source Code](https://github.com/BrunoZell/AskFi.Runtime)
+
+## Runtime Data Model
+
+Defines data structures to store:
+
+- sensory-motor information as produced by observers and brokers
+  - observation sequence
+  - execution trace
+- indexing information:
+  - interpretations `captured-observation -> code<interpreter> : moment` with `scene = moment list`
+    where `moment['ObjectIdentity : equatable, 'ReferencePhrase] = map[typeid<'ObjectIdentity>, map['ObjectIdentity, 'ReferencePhrase list]]`
+  - visualizations `scene -> code<interpreter> : canvas`
+  - strategy results `scene -> code<strategy> : decision-sequence-head`
+
+[Source Code](https://github.com/BrunoZell/AskFi.Runtime/blob/main/source/AskFi.Runtime.DataModel/Runtime.DataModel.fs)
+
+## Platform Interface
+
+- Run backtest
+- Run live strategy execution
+- Run observers
+- Run brokers
 
 ## Goals
 
