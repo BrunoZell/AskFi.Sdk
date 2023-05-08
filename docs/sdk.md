@@ -9,8 +9,8 @@
 
 The AskFi trading system consists of three parts:
 
-- an SDK in terms of which domain-specifc logic is specified
-- a runtime which executes the sensory-motor cycle
+- an SDK in terms of which domain-specifc logic is specified.
+- a [Runtime](https://github.com/BrunoZell/AskFi.Runtime), which is the software that orchestrates the execution of the sensory-motor cycle and its domain implementations as defined in terms if the SDK.
 - a set of data structures that are produced by executing the runtime.
 
 This document gives an overview about its design and serves as a starting point for everybody interrested in contributing code or developing and operating trading bots.
@@ -60,23 +60,22 @@ Defines data structures to store:
 
 [Source Code](https://github.com/BrunoZell/AskFi.Runtime/blob/main/source/AskFi.Runtime.DataModel/Runtime.DataModel.fs)
 
-## Platform Interface
+## Platform
 
-- Run backtest
-- Run live strategy execution
+The runtime is hosted within a distribution that implements the platform service it depends on.
+
+The platforms user actions are exposed via a REST API:
+
 - Run observers
 - Run brokers
+- Run live strategy execution
+- Run custom analysis code
+  - Backtest a strategy
+  - Backtest expectations
+  - Compute visualizations
+  - Export analysis results into a custom format
 
-## Modules
-
-There are two aspects of implementing this:
-
-- The SDK itself, which poses as a bridge between the IEML ontology described above, and executable code that the ecosystem targes.
-- The [Runtime](https://github.com/BrunoZell/AskFi.Runtime), which is the software that orchestrates the execution of everything that is defined in terms if the SDK.
-
-The outline described in this document focusses on how the types defined in F# relate to the categorization described above.
-
-As the ultimate reference, take a look at the [SDK type defintions](../source/AskFi.Sdk.fs) themself.
+## Runtime Modules
 
 ### Observer Module
 
