@@ -58,16 +58,4 @@ To manage action execution, the SDK defined **Brokers**.
 
 ## Ontology
 
-The four phases  **manifestation -> perception -> orientation -> action** can be further broker up by means of the two Hexads _Actors_ (green) and _Actions_ (yellow):
-
-![Lowercase Letters](./images/letters.png)
-
-So far, this is just standard IEML and nothing unique to AskFi.
-
-Read more about the six semantic primitives **Virtual, Actual, Sign, Being, Thing, Emptiness** [here](https://intlekt.io/semantic-primitives/).
-
-Read more about the 25 lowercase symbols in IEML [here](https://intlekt.io/25-basic-categories/).
-
-While these are useful and ubiquitus categories, for the sake of implementation, AskFi groups the IEML alphabet into eight domains of implementation: **SDK, Observation, Query, Authentication, Execution, Coordination, Consensus, and Human Domain**:
-
-![SDK Components](./images/components.png)
+For a more detailed perspective on the sensory-motor cycle that tremendously infleunced the development of AskFi, take a look at the ontology [here](ontology.md).
