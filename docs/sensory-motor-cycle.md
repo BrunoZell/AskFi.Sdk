@@ -2,13 +2,33 @@
 
 Overall the system models the sensory-motor cycle. But in a way that allows for reusable infrastructure and tooling built for it.
 
-A presentation about this can be watched [here](https://www.icloud.com/photos/#0e05LRBRTStqtM5rm1xL2wZKg).
+[This presentation](https://www.icloud.com/photos/#0e05LRBRTStqtM5rm1xL2wZKg) touches on the sensory-motor cycle too.
+
+## Overview
+
+```mermaid
+graph LR
+A["🌍 Reality"] -->|observe| B["👀 Percepts"]
+B -->|interpret| C["🧠 Imagination"] 
+C -->|decide| D["👋 Intervention"]
+D -->|act| A
+```
+
+This diagram represents the sensory-motor cycle in a clear and concise manner using emojis to illustrate the different components. The flow of information is indicated by the arrows between each component, with the cycle starting and ending with the external environment or **🌍 Reality**. Here's a breakdown of each component:
+
+- **🌍 Reality**: represents the external environment, which provides the sensory inputs that drive the sensory-motor cycle.
+- **👀 Percepts**: represents the perception of sensory inputs, which are processed by the brain to create _percepts_.
+- **🧠 Imagination**: represents the cognitive processing of percepts, which leads to the formation of mental representations and _imagination_.
+- **👋 Intervention**: represents the motor output or _interventions_ generated based on the cognitive processing of percepts and imagination.
+- The arrows between each component represent the flow of information, starting with the observation of sensory inputs, followed by their interpretation and cognitive processing, leading to the generation of motor output and ultimately resulting in a change in the external environment.
+
+## Formalization
 
 In [IEML](https://intlekt.io/ieml/), the sensory-motor cycle can be found in the Virtual/Actual Binary Symmetry, also called _Interaction Phases_ and looks like this:
 
 ![Interaction Phases](./images/interaction-phases.png)
 
-To understand its meaning, we must relate to the fundamental sensory-motor cycle. Let us begin with the virtual act of orientation, which takes place in the mind (wo.). From this virtual place we act (wa.). As a result, our current environment is transformed and a new reality manifests itself (we.). Finally, from the actuality of the external event, we perceive (wu.) by a return to interiority. [[source](https://intlekt.io/25-basic-categories/)]
+To understand its meaning, we must relate to the fundamental sensory-motor cycle. Let us begin with the virtual act of orientation, which takes place in the mind (`wo.`). From this virtual place we act (`wa.`). As a result, our current environment is transformed and a new reality manifests itself (`we.`). Finally, from the actuality of the external event, we perceive (`wu.`) by a return to interiority. [[source](https://intlekt.io/25-basic-categories/)]
 
 Note the two intertwined oppositions:
 
@@ -17,10 +37,9 @@ Note the two intertwined oppositions:
 | `wa.` _act_ (inside → outside)   | `wu.` _perceive_ (outside → inside) |
 | `wo.` _orient_ (inside → inside) | `we.` _appear_ (outside → outside)  |
 
-
 For more context on how this relates to machine learning and artificial intelligence, take a look at the **IEML Neuro-Semantic Architecture** described in [this essay](https://intlekt.io/2022/01/18/ieml-towards-a-paradigm-shift-in-artificial-intelligence/).
 
-## Appear - External Systems
+## Appear - Reality 🌍
 
 Represents external systems not in direct control of the Askbot operator. Examples include exchanges, distributed ledgers, externally hosted REST APIs, or the physical world itself, accessible through sensors only.
 
@@ -30,7 +49,7 @@ Rules of behavior can be inferred from public documentation, scientific experime
 
 Historic system states can be inferred from observing those systems through their public interaction interface.
 
-## Perceive - Observations
+## Perceive - Observations 👀
 
 To better reason about the state of external systems, the SDK defines **Observers**.
 
@@ -58,4 +77,4 @@ To manage action execution, the SDK defined **Brokers**.
 
 ## Ontology
 
-For a more detailed perspective on the sensory-motor cycle that tremendously infleunced the development of AskFi, take a look at the ontology [here](ontology.md).
+For a more detailed perspective on the sensory-motor cycle that tremendously infleunced the development of AskFi, take a look at the underlying ontology [here](ontology.md).
