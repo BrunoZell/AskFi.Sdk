@@ -2,11 +2,10 @@ module AskFi.Sdk
 open System.Collections.Generic
 open System.Runtime.CompilerServices
 open System.Threading.Tasks
-open System
 
-// #########################
-// #### OBSERVER MODULE ####
-// #########################
+// ######################
+// #### OBSERVATIONS ####
+// ######################
 
 /// An atomic appearance of sensory information.
 /// Includes a Percept, which is a typed (via a domain model) representation of the newly observed information.
@@ -20,37 +19,41 @@ type Observation<'Percept> = {
 type IObserver<'Percept> =
     abstract member Observations : IAsyncEnumerable<Observation<'Percept>>
 
-// ################################
-// ####   PERSPECTIVE MODULE   ####
-// ################################
+// ########################
+// #### INTERPRETATION ####
+// ########################
 
-/// Public query interface into a given Perspective.
-/// Used by queries, strategies and standalone analysis code to retrieve observations from a Perspective.
-type IPerspectiveQueries =
-    /// Get the latest received percept of the requested type.
-    /// Returns `None` if no observation of the requested type has been made yet.
-    abstract member latest<'Percept> : unit -> Observation<'Percept> option
-
-    /// Get an iterator the all Observations of type `'Percept` since the passed `timestamp`
-    /// (as determined by the runtime clock used during WorldEventStream sequencing).
-    abstract member since<'Percept> : timestamp: DateTime -> Observation<'Percept> seq
-
-    /// Todo: get an ordered sequenced of multiple Percept-types
-    /// Get an iterator the all Observations of the two types `'Percept1` and `'Percept2` since (as by the runtime clock used for WorldEventStream sequencing) the passed `timestamp`.
-    abstract member since<'Percept1, 'Percept2> : timestamp: DateTime -> System.ValueTuple<Observation<'Percept1> option, Observation<'Percept2> option> seq
+/// Public query interface into a given Perspective, which contains a record of raw observations.
+/// Used by visualizations and standalone analysis code to retrieve information about raw data.
+type IPerspectiveQueries = interface end
 
 [<IsReadOnly; Struct>]
 type Perspective = {
-    /// Built in default query interface for the runtimes Perspective Sequence
-    /// "AskFi.Runtime.DataModel.PerspectiveSequenceHead"
+    /// Built in default query interface for a given Perspective
     Query: IPerspectiveQueries
 }
 
-type Query<'Parameters, 'Result> = 'Parameters -> Perspective -> 'Result
+type Interpreter<'Percept, 'Identity, 'Reference when 'Identity: comparison> = Observation<'Percept> -> Map<'Identity, 'Reference list>
 
-// #############################
-// ####   STRATEGY MODULE   ####
-// #############################
+// ###############
+// #### QUERY ####
+// ###############
+
+/// Public query interface into a given Scene.
+/// Used by strategies, visualizations, and standalone analysis code to retrieve information from a Scene.
+type ISceneQueries = interface end
+
+[<IsReadOnly; Struct>]
+type Scene = {
+    /// Built in default query interface for a given Scene
+    Query: ISceneQueries
+}
+
+type Query<'Parameters, 'Result> = 'Parameters -> Scene -> 'Result
+
+// ##################
+// #### STRATEGY ####
+// ##################
 
 type ActionInitiation = {
     Action: obj
@@ -71,11 +74,11 @@ type Reflection = {
 }
 
 /// Contains the code of a strategy decision, called upon each evolution of the Askbot Sessions Perspective (i.e. on every new observation).
-type Decide = Reflection -> Perspective -> Decision
+type Strategy = Reflection -> Scene -> Decision
 
-// ##############################
-// ####   EXECUTION MODULE   ####
-// ##############################
+// ###################
+// #### EXECUTION ####
+// ###################
 
 type IBroker<'Action> =
     abstract member Execute : 'Action -> Task
