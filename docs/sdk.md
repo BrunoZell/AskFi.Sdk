@@ -2,69 +2,52 @@
 
 ## Table Of Contents
 
+To understanding the approach we are going after:
+
 - [Sensory-Motor Cycle](sensory-motor-cycle.md)
 - [Ontology](ontology.md)
+
+Roadmap on how to achieve collective intelligence:
+
 - [Build Phases](build-phases.md)
 - [Adoption Phases](adoption-phases.md)
+
+## Technical Overview
 
 The AskFi trading system consists of three parts:
 
 - an SDK in terms of which domain-specifc logic is specified.
-- a [Runtime](https://github.com/BrunoZell/AskFi.Runtime), which is the software that orchestrates the execution of the sensory-motor cycle and its domain implementations as defined in terms if the SDK.
+- a 
 - a set of data structures that are produced by executing the runtime.
 
 This document gives an overview about its design and serves as a starting point for everybody interrested in contributing code or developing and operating trading bots.
 
 ## SDK
 
-Defines interface types and function signatures used by domain modules to define domain-specific logic.
+The [SDK](https://github.com/BrunoZell/AskFi.Runtime) defines interface types and function signatures used by domain modules to define domain-specific logic.
 
-This library is written in F#, and it can be implemented by any language that compiles into .NET Intermediate Language.
+Documentation about how to implement custom domains are [here](./domain/domain-modelling.md).
 
-Users can define custom:
+## Runtime and Data Model
 
-- Observation logic (control network communication that produces percepts)
-- Interpretations of observations into semantically computable IEML phrases
-- Strategies that map Scenes of abstract objects to a decision about actions
-- Visualization
+The [Runtime](https://github.com/BrunoZell/AskFi.Runtime) is the software that orchestrates the execution of the sensory-motor cycle and its domain implementations as defined in terms if the SDK.
 
-[Source Code](https://github.com/BrunoZell/AskFi.Sdk/blob/main/source/AskFi.Sdk.fs)
+While the _Runtime_ is executing, it produces a data trace in the form of the runtimes _Data Model_.
 
-## Runtime
-
-Which executes domain-implementations defined in terms of the SDK and persists data via data structures defined by the Runtime Data Model.
-
-It is modularized into:
-
-- Observer Group: running one or more `IObserver<'Percept>`
-- Perspective Merge: merging observations from multiples observation groups distributed thrughout space into a temporally ordered sequence
-- Interpretation: applying custom `Interpreter`-implementations on `CapturedObservation`s.
-- Evaluation: expressing preference between `Scene`s.
-- Strategy: executes custom `Strategy`-implementations on a `Scene` and the strategies session `Reflection`.
-- Analysis: executes custom code that can read information from a `Scene` through the _Scene Query Interface_.
-
-[Source Code](https://github.com/BrunoZell/AskFi.Runtime)
-
-## Runtime Data Model
-
-Defines data structures to store:
-
-- sensory-motor information as produced by observers and brokers
-  - observation sequence
-  - execution trace
-- indexing information:
-  - interpretations `captured-observation -> code<interpreter> : moment` with `scene = moment list`
-    where `moment['ObjectIdentity : equatable, 'ReferencePhrase] = map[typeid<'ObjectIdentity>, map['ObjectIdentity, 'ReferencePhrase list]]`
-  - visualizations `scene -> code<interpreter> : canvas`
-  - strategy results `scene -> code<strategy> : decision-sequence-head`
-
-[Source Code](https://github.com/BrunoZell/AskFi.Runtime/blob/main/source/AskFi.Runtime.DataModel/Runtime.DataModel.fs)
+Documentation about implementation details are [here](./runtime/overview.md).
 
 ## Platform
 
-The runtime is hosted within a distribution that implements the platform service it depends on.
+The _Runtime_ itself just implements the behavior that executes domain-specific logic. It still needs to be hosted somewhere. That is taken care of by a _Platform Implementation_.
 
-The platforms user actions are exposed via a REST API:
+The _Platform_ serves the infrastructure the runtime depends on, which is:
+
+- Content-Addressed persistence
+- Messaging between _Runtime Modules_.
+- Networking with external computer systems
+- Computing infrastructure to execute code
+
+It also exposes a user interface through with the operator commands what domain implementations should execute. In the default platform implementation, those actions are exposed via a REST API:
 
 - Run observers
 - Run brokers
@@ -74,8 +57,6 @@ The platforms user actions are exposed via a REST API:
   - Backtest expectations
   - Compute visualizations
   - Export analysis results into a custom format
-
-## Runtime Modules
 
 ### Observer Module
 
