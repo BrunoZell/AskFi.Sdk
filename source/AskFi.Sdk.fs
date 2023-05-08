@@ -33,7 +33,8 @@ type Perspective = {
     Query: IPerspectiveQueries
 }
 
-type Interpreter<'Percept, 'Identity, 'Reference when 'Identity: comparison> = Observation<'Percept> -> Map<'Identity, 'Reference list>
+type Interpreter<'Percept, 'Identity, 'Reference when 'Identity: comparison> =
+    Observation<'Percept> -> Map<'Identity, 'Reference list>
 
 // ###############
 // #### QUERY ####
@@ -49,20 +50,12 @@ type Scene = {
     Query: ISceneQueries
 }
 
-type Query<'Parameters, 'Result> = 'Parameters -> Scene -> 'Result
+type Query<'Parameters, 'Result> =
+    'Parameters -> Scene -> 'Result
 
 // ##################
 // #### STRATEGY ####
 // ##################
-
-type ActionInitiation = {
-    Action: obj
-    Type: System.Type
-}
-
-type Decision =
-    | Inaction
-    | Initiate of Initiatives: ActionInitiation array
 
 type IReflectionQueries = interface end
 
@@ -73,8 +66,18 @@ type Reflection = {
     Query: IReflectionQueries
 }
 
+type ActionInitiation = {
+    Action: obj
+    Type: System.Type
+}
+
+type Decision =
+    | Inaction
+    | Initiate of Initiatives:ActionInitiation array
+
 /// Contains the code of a strategy decision, called upon each evolution of the Askbot Sessions Perspective (i.e. on every new observation).
-type Strategy = Reflection -> Scene -> Decision
+type Strategy =
+    Reflection -> Scene -> Decision
 
 // ###################
 // #### EXECUTION ####

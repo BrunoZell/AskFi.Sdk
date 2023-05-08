@@ -10,4 +10,5 @@ There are two communication adapters to be implemented:
 And two functions:
 
 - [Interpreters](interpretation.md) to extract semantically computable reference phrases from captured observations.
+- [Queries](queries.md) which are reusable implementations of semantic aggregations or transformations of object instance references within a scene.
 - [Strategies](strategy.md) to map the interpreted representation of reality to decisions about what to do.
