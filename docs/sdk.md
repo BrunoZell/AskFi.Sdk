@@ -1,6 +1,17 @@
 # Ask Finance Strategy Development Kit (SDK)
 
-The AskFi trading system consists of an SDK in terms of which domain-specifc logic is specified, a runtime which executes the sensory-motor cycle, and a set of data structures that are produced by executing the runtime.
+## Table Of Contents
+
+- [Sensory-Motor Cycle](sensory-motor-cycle.md)
+- [Ontology](ontology.md)
+- [Build Phases](build-phases.md)
+- [Adoption Phases](adoption-phases.md)
+
+The AskFi trading system consists of three parts:
+
+- an SDK in terms of which domain-specifc logic is specified
+- a runtime which executes the sensory-motor cycle
+- a set of data structures that are produced by executing the runtime.
 
 This document gives an overview about its design and serves as a starting point for everybody interrested in contributing code or developing and operating trading bots.
 
@@ -56,9 +67,7 @@ Defines data structures to store:
 - Run observers
 - Run brokers
 
-
-
-## Implementation
+## Modules
 
 There are two aspects of implementing this:
 
@@ -102,7 +111,7 @@ Via `Perspective.Query`, an instance of `IPerspectiveQueries` can be obtained th
 
 [Queries](./queries.md) can call other _Queries_ during their execution. The Runtime ensures that results are adequately cached such that the domain modeller can focus on the transformations themself and not on the performance of those implementations.
 
-### Strategy Nodule
+### Strategy Module
 
 This module contains these SDK types:
 
