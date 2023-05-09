@@ -23,16 +23,6 @@ type IObserver<'Percept> =
 // #### INTERPRETATION ####
 // ########################
 
-/// Public query interface into a given Perspective, which contains a record of raw observations.
-/// Used by visualizations and standalone analysis code to retrieve information about raw data.
-type IPerspectiveQueries = interface end
-
-[<IsReadOnly; Struct>]
-type Perspective = {
-    /// Built in default query interface for a given Perspective
-    Query: IPerspectiveQueries
-}
-
 type Interpreter<'Percept, 'Identity, 'Reference when 'Identity: comparison> =
     Observation<'Percept> -> Map<'Identity, 'Reference list>
 
