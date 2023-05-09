@@ -87,3 +87,15 @@ Whenever a message `NewDecision` is received, do for each action in decision:
 2. Route to according `IBroker<'Action>` and wait for completion
 3. Build new node in _Execution Sequence_: `DataModel.  ExecutionSequenceHead`.
 4. Emit message `ActionExecuted` linking the newest _Execution Sequence_.
+
+## Strategy Declaration Pool
+
+- Asks in the form of `Scene -> Fulfilled | Unfulfilled`.
+- Offers in the form of `{ Additions: ConditionalAction, Removals: ConditionalAction }`.
+- Accept in the form of `ChangeOfPlan` that has a condition on other subjects action trace, or an according observation.
+
+Each subject has:
+
+- A declared strategy, as a list of conditional actions+proofspec
+- A declared value set, as a list of asks
+- A historical execution trace
