@@ -99,3 +99,11 @@ Each subject has:
 - A declared strategy, as a list of conditional actions+proofspec
 - A declared value set, as a list of asks
 - A historical execution trace
+
+## Evaluation
+
+Run value sets of one subject on the subjects perspective. That generates a history of economic wellbeing, or _Realized Value_.
+
+This _Realized Value_ is the optimization goal for each individual subject.
+
+Cooperation is the way to optimize each subjects realized value, so they gossip their values and declare commitments about what they do that depend on other subjects behavor.
