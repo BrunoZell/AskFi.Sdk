@@ -1,8 +1,6 @@
 # Runtime Internals
 
-[Source Code](https://github.com/BrunoZell/AskFi.Runtime)
-
-The _Runtime_ is modularized. Each modules implements a sub-problem while sharing the same data strutures to pass data around.
+The [Runtime](https://github.com/BrunoZell/AskFi.Runtime) is modularized. Each modules implements a sub-problem while sharing the same data strutures to pass data around.
 
 ## Observer Group
 
@@ -16,6 +14,22 @@ Whenever an _Observer_ emits a new `Sdk.Observation<'Percept>`, it is processed 
 2. Serialize into `DataModel.CapturedObservation`
 3. Build new node in _Observation Sequence_: `DataModel.ObservationSessionSequenceHead`
 4. Emit message `NewObservation` linking the newest._Observation Sequence_.
+
+```fsharp
+type CapturedObservation<'Percept> = {
+    At: DateTime
+    PerceptType: System.Type
+    Observation: Sdk.Observation<'Percept>
+}
+
+type ObservationSequenceHead =
+    | Beginning
+    | Happening of Node:ObservationSequenceNode
+and ObservationSequenceNode = {
+    Previous: ContentId // ObservationSequenceHead
+    Observation: ContentId // CapturedObservation
+}
+```
 
 ## Observation Pool
 
@@ -33,6 +47,21 @@ Whenever a message `NewPerspective` is received:
 - Received `DataModel.ObservationPool` is merged into the latest `DataModel.ObservationPool`.
 - If `DataModel.ObservationPool` changed, emit message `NewPerspective` linking the newest _Observation Pool_.
 
+```fsharp
+type PerspectiveSequenceHead =
+    | Beginning
+    | Happening of Node:PerspectiveSequenceNode
+and PerspectiveSequenceNode = {
+    Previous: ContentId // PerspectiveSequenceHead
+    LatestObservation: ContentId // ObservationSequenceHead
+}
+
+type ObservationPool = {
+    AggregatePerspective: ContentId // PerspectiveSequenceHead
+    DroppedPerspectives: ContentId Set // PerspectiveSequenceHead Set
+}
+```
+
 ## Analysis
 
 Two flavors:
@@ -48,6 +77,24 @@ Whenever a message `NewPerspective` is received:
 - If the merge produced a new perspective:
 - Run strategy on all newly sequenced observations
 - Emit message `NewDecision` for every non-inaction-decision, linking the newest decision index CRDT.
+
+```fsharp
+type ActionSet = {
+    Initiations: ActionInitiation array
+}
+and ActionInitiation = {
+    ActionType: Type
+    ActionCid: ContentId // this.ActionType
+}
+
+type DecisionSequenceHead =
+    | Start
+    | Initiative of Node:DecisionSequenceNode
+and DecisionSequenceNode = {
+    Previous: ContentId // DecisionSequenceHead
+    ActionSet: ContentId // ActionSet
+}
+```
 
 ### Replay
 
@@ -87,6 +134,26 @@ Whenever a message `NewDecision` is received, do for each action in decision:
 2. Route to according `IBroker<'Action>` and wait for completion
 3. Build new node in _Execution Sequence_: `DataModel.  ExecutionSequenceHead`.
 4. Emit message `ActionExecuted` linking the newest _Execution Sequence_.
+
+```fsharp
+type ActionExecutionTrace =
+    | Success of trace: byte[] option
+    | Error of ``exception``: string option
+
+type ActionExecutionResult = {
+    Trace: ActionExecutionTrace
+    InitiationTimestamp: DateTime
+    CompletionTimestamp: DateTime
+}
+
+type ExecutionSequenceHead =
+    | Start
+    | Execution of Node:ExecutionSequenceNode
+and ExecutionSequenceNode = {
+    Previous: ContentId // ExecutionSequenceHead
+    Action: ActionInitiation
+}
+```
 
 ## Strategy Declaration Pool
 
