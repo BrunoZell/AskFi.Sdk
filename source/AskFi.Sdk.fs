@@ -50,15 +50,6 @@ type IPerspectiveQueries =
     /// Get an iterator the all Observations of the two types `'Perception1` and `'Perception2` since (as by the runtime clock used for WorldEventStream sequencing) the passed `timestamp`.
     abstract member since<'Perception1, 'Perception2> : timestamp: DateTime -> System.ValueTuple<Observation<'Perception1> option, Observation<'Perception2> option> seq
 
-type Scene = {
-    // Every scene is generated from a single Observation<'P>, thus a single known 'P
-    PerceptionType: Type
-
-    // typeof(InstanceKey) -> 'InstanceKey set
-    // Across all possible 'InstanceKey (i.e. object classes), list all referenced (instantiated) instances
-    ObjectInstances: Map<string, obj list>
-}
-
 [<IsReadOnly; Struct>]
 type Perspective = {
     /// This references a Sdk.Runtime.DataModel.PerspectiveSequenceHead, which in turn references
@@ -67,7 +58,7 @@ type Perspective = {
     Query: IPerspectiveQueries
 }
 
-type Query<'Parameters, 'Result> = 'Parameters -> Perspective * Scene -> 'Result
+type Query<'Parameters, 'Result> = 'Parameters -> Perspective -> 'Result
 
 // ######################
 // ####   STRATEGY   ####
@@ -94,18 +85,6 @@ type Reflection = {
 
 /// Contains the code of a strategy decision, called upon each evolution of the Askbot Sessions Perspective (i.e. on every new observation).
 type Decide = Reflection -> Perspective -> Decision
-
-// ####################
-// #### SIMULATION ####
-// ####################
-
-type Interpreter<'Perception, 'InstanceKey when 'InstanceKey : equality> =
-    abstract member Interpret : 'Perception -> 'InstanceKey list
-
-/// Simulation function generates fictional observations.
-/// Those are free not to use the object classed used to interpret actual observations.
-/// They can create independent expectation object classes like 'VirtualTrade' in case of order book backtesting.
-type Simulate<'Action> = Perspective * Scene -> 'Action -> Scene
 
 // ####################
 // ####   ACTION   ####
