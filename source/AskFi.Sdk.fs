@@ -2,8 +2,6 @@ module AskFi.Sdk
 open System.Collections.Generic
 open System.Runtime.CompilerServices
 open System.Threading.Tasks
-open System
-open AskFi.Persistence
 
 // ######################
 // #### OBSERVATIONS ####
@@ -67,7 +65,7 @@ type Decision =
     | Inaction
     | Initiate of Initiatives:ActionInitiation array
 
-/// Contains the code of a strategy decision, called upon each evolution of the Askbot Sessions Perspective (i.e. on every new observation).
+/// Contains the code of a strategy decision, called upon each evolution of the Askbot sessions context (i.e. on every new observation).
 type Strategy =
     Reflection -> Context -> Decision
 
