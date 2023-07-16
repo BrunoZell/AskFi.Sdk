@@ -6,7 +6,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="Persistence.fs" />
     <Compile Include="AskFi.Sdk.fs" />
   </ItemGroup>
 
