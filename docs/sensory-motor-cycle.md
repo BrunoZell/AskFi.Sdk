@@ -53,7 +53,7 @@ Here a version of the sensory-motor diagram adapted to machines:
 ```mermaid
 graph LR
 A["🌍 Reality"] -->|observe| B["📸 Percepts"]
-B -->|interpret| C["🌐 Scene"] 
+B -->|interpret| C["🌐 Context"] 
 C -->|decide| D["🦾 Intervention"]
 D -->|act| A
 ```

@@ -106,11 +106,11 @@ Given:
 
 Iterates all _Captured Observation_ in the _Perspecive Sequence_ from latest to earliest and runs the _Strategy_ on it.
 
-The `Scene` passed into the _Strategy_ is a lazily evaluated and cached wrapper around the _Perspective Sequence_.
+The `Context` passed into the _Strategy_ is a lazily evaluated and cached wrapper around the _Perspective Sequence_.
 
-While the strategy is executing, it calls `Sdk.ISceneQueries` to inspect object instance references. Each call references an `Sdk.Interpreter`. The implementation behind `Sdk.ISceneQueries` iterates through the _Perspective Sequence_ data structure, runs _Interpreters_ on `Sdk.Observation`s, and caches results.
+While the strategy is executing, it calls `Sdk.IContextQueries` to inspect object instance references. Each call references an `Sdk.Interpreter`. The implementation behind `Sdk.IContextQueries` iterates through the _Perspective Sequence_ data structure, runs _Interpreters_ on `Sdk.Observation`s, and caches results.
 
-Scene index:
+Context index:
 
 ```
 cid<captured-observation> -> code<interpreter> =
@@ -157,7 +157,7 @@ and ExecutionSequenceNode = {
 
 ## Strategy Declaration Pool
 
-- Asks in the form of `Scene -> Fulfilled | Unfulfilled`.
+- Asks in the form of `Context -> Fulfilled | Unfulfilled`.
 - Offers in the form of `{ Additions: ConditionalAction, Removals: ConditionalAction }`.
 - Accept in the form of `ChangeOfPlan` that has a condition on other subjects action trace, or an according observation.
 

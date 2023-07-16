@@ -4,7 +4,7 @@ A _Strategy_ is a function of the following form, as defined by the type `AskFi.
 
 ```fsharp
 type Strategy =
-    Reflection -> Scene -> Decision
+    Reflection -> Context -> Decision
 ```
 
 with a decision defined as:
@@ -20,7 +20,7 @@ type Decision =
     | Initiate of Initiatives:ActionInitiation array
 ```
 
-A strategy maps any given `Perspective` to a `Decision`, where it analyzes object instances from a `Scene` that was obtained by interpreting the `Perspecive` according to the _Interpreters_ requested by the strategy implementation.
+A strategy maps any given `Perspective` to a `Decision`, where it analyzes object instances from a `Context` that was obtained by interpreting the `Perspecive` according to the _Interpreters_ requested by the strategy implementation.
 
 ## Live Execution
 
@@ -32,6 +32,6 @@ If the decision is to initate an _Action_, that request is handed off to the _Br
 
 ## Implementation Requirements
 
-- Code must only reference data from passed `Reflection` and `Scene`.
-- Object instance referenes from the `Scene` are read via the query interface defined as `AskFi.Sdk.ISceneQueries`.
+- Code must only reference data from passed `Reflection` and `Context`.
+- Object instance referenes from the `Context` are read via the query interface defined as `AskFi.Sdk.IContextQueries`.
 - Function must be logically pure. Resolving content-addressed data is fine.

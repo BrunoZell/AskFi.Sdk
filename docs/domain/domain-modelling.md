@@ -12,7 +12,7 @@ There are two communication adapters to be implemented:
 And three functions:
 
 - [Interpreters](interpretation.md) to extract semantically computable reference phrases from captured observations.
-- [Queries](queries.md) which are reusable implementations of semantic aggregations or transformations of object instance references within a scene.
+- [Queries](queries.md) which are reusable implementations of semantic aggregations or transformations of object instance references within a context.
 - [Strategies](strategy.md) to map the interpreted representation of reality to decisions about what to do.
 
 [what follows is vNext with SCMs]
@@ -48,7 +48,7 @@ Interpreters: Imperative behavior as pure .NET function `Message -> Percept list
 Maps a communication protocol message to one or more IEML phrases (metadata) + referents (raw data). The goal is to extract the meaning of the message; what has been said in the conversation.
 
 Analyzers: Imperative behavior as pure .NET function `'Percept -> SCM Observation Node` where `SCM Observation Node = SMC Effect Target Address (for causes to specify they emit a public actual message)`.
-Analyzers: Imperative behavior as pure .NET function : `'Action -> SCM Intervention Node` where `SCM Intervention Node = SMC Effect Sender Address (for listeners to target) + 'Effect (what is sent to the listeners) [as SMC object in Scene with state as IPLD data structure]`.
+Analyzers: Imperative behavior as pure .NET function : `'Action -> SCM Intervention Node` where `SCM Intervention Node = SMC Effect Sender Address (for listeners to target) + 'Effect (what is sent to the listeners) [as SMC object in Context with state as IPLD data structure]`.
 
 ## Virtual representation of causal message exchange between external systems
 

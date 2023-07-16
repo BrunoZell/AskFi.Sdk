@@ -69,7 +69,7 @@ type Decision =
 
 /// Contains the code of a strategy decision, called upon each evolution of the Askbot Sessions Perspective (i.e. on every new observation).
 type Strategy =
-    Reflection -> Scene -> Decision
+    Reflection -> Context -> Decision
 
 // ###################
 // #### EXECUTION ####
