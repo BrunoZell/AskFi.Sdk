@@ -69,12 +69,34 @@ type Query<'Parameters, 'Result> =
 // #### STRATEGY ####
 // ##################
 
-type IReflectionQueries = interface end
+type DecisionReflection<'Action> = {
+    /// The action itself
+    Action: 'Action
+
+    /// Timestamp of the context on which this actions decisions was made.
+    VirtualTimestamp: System.DateTime
+    
+    /// Runtime timestamp at which this actions decisions was made.
+    /// For live execution, the difference between virtual and actual timestamp is the strategy evaluation time.
+    /// For backtests, the difference between virtual and actual timestamp is the time duration looking back in time.
+    ActualTimestamp: System.DateTime
+}
+
+/// Query interface into decisions from a decision sequence "AskFi.Runtime.DataModel.DecisionSequenceHead".
+/// Used by strategies to reflect on past actions. This is important so the strategy can remember it just
+/// did some 'Action to not do it again even if there is no external sensory-information hinting on it.
+type IReflectionQueries = 
+    /// Get the latest received perception of the requested type.
+    /// Returns `None` if no observation of the requested type has been made yet.
+    abstract member latest<'Action> : unit -> DecisionReflection<'Action> option
+    
+    /// Get an iterator the all Observations of type `'Perception` since the passed `from` until `to`
+    /// (as determined by the runtime clock used during context sequencing).
+    abstract member inTimeRange<'Action> : from: System.DateTime * ``to``: System.DateTime -> DecisionReflection<'Action> seq
 
 [<IsReadOnly; Struct>]
 type Reflection = {
-    /// Built in default query interface for the runtimes Decision Sequence
-    /// "AskFi.Runtime.DataModel.DecisionSequenceHead"
+    /// Built in default query interface for the runtimes decision Sequence
     Query: IReflectionQueries
 }
 
