@@ -10,27 +10,24 @@ open System.Threading.Tasks
 /// An atomic appearance of sensory information from within an IObserver<'Percept>.
 /// Includes a Percept, which is a typed (via a domain model) representation of the newly observed information.
 /// An observation can have multiple Percepts in case they all appeared at the same instant (point in time).
-/// An individual observation, by definition, appeared at a singular instant (point in time)
+/// An individual observation, by definition, appeared at a singular instant (point in time).
+/// Since the 'Percept here is alredy stringly typed, it is data resulted from already interpreting the observed system.
 [<IsReadOnly; Struct>]
 type Observation<'Percept> = {
     Percepts: 'Percept array
 }
 
+/// Implemented by domain modules. An implementation defines imperative networking behavior to interact with
+/// an external system with the aim of observing it to later infer what was happening. The observer implementation
+/// interprets the networking traffic and emits strongly-typed 'Percepts whenever there are new measurements obtained.
 type IObserver<'Percept> =
     abstract member Observations : IAsyncEnumerable<Observation<'Percept>>
-
-// ########################
-// #### INTERPRETATION ####
-// ########################
-
-type Interpreter<'Percept, 'Identity, 'Reference when 'Identity: comparison> =
-    Observation<'Percept> -> Map<'Identity, 'Reference list>
 
 // ###############
 // #### QUERY ####
 // ###############
 
-/// An atomic appearance of sensory information from outside of IContextQueries.
+/// An atomic appearance of sensory information from callers of IContextQueries.
 /// Includes a Percept, which is a typed (via a domain model) representation of the newly observed information.
 /// An observation can have multiple Percepts in case they all appeared at the same instant (point in time).
 /// An individual observation, by definition, appeared at a singular instant (point in time).
